@@ -1,0 +1,8 @@
+{
+  "httpPort": 8080,
+  "websocketServerPort": 8088,
+  "tcpIp": "192.168.0.45",
+  "tcpPort": 5300,
+  "ipdatabasename": "192.168.0.34:8080",
+  "clientId": "7b107820-90d9-11e8-8d8f-8dd6c7879d34"
+}

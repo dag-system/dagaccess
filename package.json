@@ -1,0 +1,28 @@
+{
+  "name": "dagaccess",
+  "version": "1.0.9",
+  "description": "DAG Access Customer Screen Management",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "node index nominify"
+  },
+  "author": "Tony BERNARD",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.2",
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "express-fileupload": "^0.4.0",
+    "fs": "0.0.1-security",
+    "ip": "^1.1.5",
+    "knex": "^0.15.2",
+    "mysql": "^2.16.0",
+    "node-wav-player": "0.0.1",
+    "uuid": "^3.3.2",
+    "winston": "^3.0.0",
+    "ws": "^6.0.0"
+  }
+}
