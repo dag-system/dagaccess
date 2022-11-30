@@ -1,0 +1,1714 @@
+@font-face {
+	font-family: "Play";
+	src: url('../dist/fonts/Play-Regular.ttf');
+}
+
+@font-face {
+	font-family: "Play";
+	font-weight: bold;
+	src: url('../dist/fonts/Play-Bold.ttf');
+}
+
+body{
+  font-family: "Play";
+}
+
+h3{
+  font-size: 30px;
+}
+th {
+  font-size: 12px;
+}
+
+td {
+  font-size: 10px;
+}
+
+ul {
+		padding:0 0 0 0;
+		margin:0 0 0 0;
+}
+
+ul li {
+		list-style:none;
+}
+
+ul li img {
+		cursor: pointer;
+}
+
+.img-center{
+	margin: 0 auto;
+}
+
+
+.ctrlpic{
+	cursor: pointer;
+}
+
+.scroll {
+	max-height:330px;/*The important part*/
+	overflow-y:auto;/*Also...*/
+	overflow-x:hidden;
+}
+
+.btn-group-xs>.btn, .btn-xs {
+	font-size: 9px !important;
+	margin-bottom: 2px;
+}
+
+.photoHeight{
+	max-width: 25%;
+}
+
+.photoCtrlHeight{
+	max-width: 80%;
+}
+
+.album {
+	height:180px;
+	margin-bottom: 5px;
+}
+
+.ctrlhighlight {
+	border: 2px #2e6da4;
+	border-style: solid;
+	padding: 1px 1px 25px 1px;
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+.nav {
+  margin-top: 5px;
+}
+
+.terminal{
+  background: black;
+  color: white;
+  font: courier;
+	font-size:12px;
+  padding: 10px;
+  height: 500px;
+  overflow: auto;
+}
+
+.line{
+  display: table;
+  width: 100%;
+}
+
+.terminal span{
+  display:table-cell;
+  width:1px;
+}
+
+.terminal input{
+  display:table-cell;
+  width:100%;
+  border: none;
+  background: black;
+  color: white;
+  outline: none;
+}
+
+
+.input-xs {
+  height: 22px!important;
+  padding: 2px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+  width: 100% !important;
+}
+.input-group-xs>.form-control,
+.input-group-xs>.input-group-addon,
+.input-group-xs>.input-group-btn>.btn {
+  height: 22px;
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+@media screen and (min-width: 561px) {
+
+	.screenLarge{
+		display:inherit;
+	}
+	.screenSmall{
+		display:none;
+	}
+
+	.footer {
+	   position: fixed;
+	   left: 0;
+	   bottom: 0;
+	   width: 100%;
+	   background: white;
+	   padding-top: 5px;
+	}
+
+	.systemHour{
+	  font-size: 36px;
+	  margin-right: 5px;
+	  font-weight: bold;
+	  color: #3a3a3a;
+	}
+
+	.version{
+	  font-size: 10px;
+	}
+	.localIP{
+	  font-size: 10px;
+	}
+	.travelTime{
+	  font-size: 10px;
+	}
+	.pointCost{
+	  font-size: 10px;
+	}
+
+	/* monitoring RFID Info */
+	.monitoringRFIDInfo{
+	  margin-left:2px;
+	}
+
+	/* Other info */
+	.otherInfo{
+	  margin-left:2px;
+	}
+
+	/* Data info */
+	.dataInfo{
+	  margin-left:2px;
+	}
+
+	.freeTurnstile{
+		height: 80px;
+		font-size:20px;
+		font-weight: 700;
+		color: white;
+	}
+
+	.freeTurnstileIcon{
+		padding-top:24px;
+		font-size:50px;
+	}
+
+	.freeTurnstileText{
+		padding-top:35px
+	}
+
+	.abortTurnstile{
+		height: 80px;
+		font-size:20px;
+		font-weight: 700;
+		color: yellow;
+	}
+
+	.abortTurnstileIcon{
+		padding-top:24px;
+		font-size:50px;
+	}
+
+	.abortTurnstileText{
+		padding-top:35px
+	}
+
+	.antennaTune{
+		margin-top:5px
+	}
+
+	.slidecontainer {
+		margin-top: 10px;
+	  width: 100%;
+	}
+
+	.slider {
+	  -webkit-appearance: none;
+	  width: 100%;
+	  height: 15px;
+	  border-radius: 5px;
+	  background: #d3d3d3;
+	  outline: none;
+	  opacity: 0.7;
+	  -webkit-transition: .2s;
+	  transition: opacity .2s;
+	}
+
+	.slider:hover {
+	  opacity: 1;
+	}
+
+	.slider::-webkit-slider-thumb {
+	  -webkit-appearance: none;
+	  appearance: none;
+	  width: 25px;
+	  height: 25px;
+	  border-radius: 50%;
+	  background: #4CAF50;
+	  cursor: pointer;
+	}
+
+	.slider::-moz-range-thumb {
+	  width: 25px;
+	  height: 25px;
+	  border-radius: 50%;
+	  background: #4CAF50;
+	  cursor: pointer;
+	}
+
+	/* log info */
+	.logInfoData{
+	  font-size: :10px;
+	  font-style:italic;
+	  margin-left:2px;
+	}
+
+	.logDebug{
+	  color:blue;
+	}
+	.logInfo{
+	  color:green;
+	}
+	.logError{
+	  background-color:red;
+	  color:white;
+	}
+	.logWarn{
+	  color:yellow;
+	}
+	.logFatal{
+	  background-color:yellow;
+	  color:white;
+	}
+
+	.detectionCount{
+		font-size: 36px;
+	}
+
+	/* Product info */
+	.productInfo{
+	  margin-left:2px;
+	}
+
+	.timestamp{
+	  font-size:10px;
+	}
+
+	.dag{
+	  font-size:14px;
+	  font-weight: 700;
+	}
+
+	.antenna{
+	  font-size:14px;
+	  font-weight: 700;
+	}
+
+	.userNameHisto{
+	  font-size:10px;
+	  font-weight: 700;
+	}
+
+	.userName{
+	  font-size:20px;
+	  font-weight: 700;
+		margin-left: 10px;
+	}
+
+	.error{
+	  font-size:18px;
+	  font-weight: 700;
+	  background-color: white;
+	  color : red;
+		padding: 5px;
+		text-align: center;
+	}
+
+	.itemDateHisto{
+		font-size:8px;
+	}
+
+	.productNameHisto{
+	  font-size:14px;
+	  font-weight: 700;
+	  /* color: white; */
+	}
+
+	.itemDate{
+		font-size:18px;
+	}
+
+	.productName{
+	  font-size:24px;
+	  font-weight: 700;
+	  /* color: white; */
+	}
+
+	.lastDetect{
+	  font-size:10px;
+	}
+	.position{
+	  font-weight: 700;
+	  font-size: 14px;
+	}
+	.nbDetect{
+	  font-size:10px;
+	}
+
+	.getHistory{
+		margin-top: -20px;
+	  margin-left: 5px;
+	}
+
+	.jsonCode{
+		width: 400px;
+		overflow-x: auto;
+		word-wrap: break-word;
+	}
+
+	.noData{
+		font-size: 16px;
+	}
+
+	.nbPassageByDay{
+		font-size: 16px;
+	}
+
+
+	/* Traffic Light */
+	.trafficLight{
+	  background-color: #272727;
+	  border-radius: 10px;
+	  background: linear-gradient(180deg,#000000 0%,#1d1d1d 30%,#333333 60%,#757575 100%);
+	  box-shadow: 0px 1px 1px rgba(0%,0%,0%,0.6),0px 0px 5px #ffffff,0px 1px 0px 3px rgba(0%,0%,0%,0.8),inset 0px 1px 0px #ffffff;
+	  padding: 5px;
+	  display: inline-block;
+	  margin-bottom: 10px;
+	}
+
+	.smallTrafficLight{
+	  background-color: #272727;
+	  border-radius: 10px;
+	  background: linear-gradient(180deg,#000000 0%,#1d1d1d 30%,#333333 60%,#757575 100%);
+	  /* box-shadow: 0px 1px 1px rgba(0%,0%,0%,0.6), 0px 0px 5px #ffffff, 0px 1px 0px 3px rgba(0%,0%,0%,0.8), inset 0px 1px 0px #ffffff; */
+	  padding: 5px;
+	  display: inline-grid;
+	  margin-bottom: 10px;
+	  width: 30px;
+	}
+
+	.trafficSystemLight{
+	  background-color: #c1c1c1;
+	  border-radius: 10px;
+	  background: linear-gradient(180deg,#0000007a 0%,#1d1d1d29 30%,#3333331f 60%,#0000007a 100%);
+	  box-shadow: 0px 1px 1px rgba(0%,0%,0%,0.6), 0px 0px 5px #ffffff, 0px 1px 0px 3px rgba(0%,0%,0%,0.8), inset 0px 1px 0px #ffffff;
+	  padding: 5px;
+	  display: inline-block;
+	  margin-left: 10px;
+	  margin-bottom: 10px;
+	}
+
+	/* Flash class and keyframe animation */
+	.flashit{
+		-webkit-animation: flash linear 1s infinite;
+		animation: flash linear 1s infinite;
+	}
+	@-webkit-keyframes flash {
+		0% { opacity: 1; }
+		50% { opacity: .1; }
+		100% { opacity: 1; }
+	}
+	@keyframes flash {
+		0% { opacity: 1; }
+		50% { opacity: .1; }
+		100% { opacity: 1; }
+	}
+
+	.glyphicon-refresh-animate {
+		margin-right: 1px;
+	  -animation: spin .7s infinite linear;
+	  -webkit-animation: spin2 1s infinite linear;
+	}
+
+	.glyphicon-margin{
+	  margin-right: 1px;
+	}
+
+	@-webkit-keyframes spin2 {
+	    0% { -webkit-transform: scale(1) rotateY(0deg)}
+	    50% { -webkit-transform: scale(1) rotateY(180deg)}
+	    100% { -webkit-transform: scale(1) rotateY(0deg)}
+	}
+
+	@keyframes spin {
+	  0% { transform: scale(1) rotate(0deg);color:black}
+	  50% { transform: scale(1) rotate(180deg);color:#0f76f0}
+	  100% { transform: scale(1) rotate(0deg);color:black}
+
+	}
+
+
+
+	.redLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 40px;
+	  height: 40px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #ed4e4e;
+	  border-radius: 100px;
+	  border: 1px solid #ac1d1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 9px 13px 10px 13px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #9c2828;
+	}
+	.redLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.redLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.redLightOn > .ld {
+	  font-size: initial
+	}
+
+
+	.redLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 40px;
+	  height: 40px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(92%,30%,30%,0);
+	  border-radius: 100px;
+	  border: 1px solid #ac1d1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 9px 13px 10px 13px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #9c2828;
+	}
+	.redLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.redLightOff > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.redLightOff > .ld {
+	  font-size: initial
+	}
+
+	.orangeLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 40px;
+	  height: 40px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #edcb4e;
+	  border-radius: 100px;
+	  border: 1px solid #d39b20;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 9px 13px 10px 13px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #e0ac3a;
+	}
+
+	.orangeLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.orangeLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.orangeLightOn > .ld {
+	  font-size: initial
+	}
+
+	.orangeLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 40px;
+	  height: 40px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(92%,80%,30%,0);
+	  border-radius: 100px;
+	  border: 1px solid #d39b20;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 9px 13px 10px 13px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #e0ac3a;
+	}
+	.orangeLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.orangeLightOff > i {
+	  color: #fff;
+	  font-size: 1em;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.orangeLightOff > .ld {
+	  font-size: initial
+	}
+
+	.greenLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 40px;
+	  height: 40px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #a2da8e;
+	  border-radius: 100px;
+	  border: 1px solid #25ac1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 9px 13px 10px 13px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #529c28;
+	}
+	.greenLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.greenLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.greenLightOn > .ld {
+	  font-size: initial
+	}
+
+	.greenLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 40px;
+	  height: 40px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(64%,85%,56%,0);
+	  border-radius: 100px;
+	  border: 1px solid #25ac1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 9px 13px 10px 13px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #529c28;
+	}
+	.greenLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.greenLightOff > i {
+	  color: #fff;
+	  font-size: 1em;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.greenLightOff > .ld {
+	  font-size: initial
+	}
+
+	/* Small Traffic Light */
+	.smallRedLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 20px;
+	  height: 20px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #ed4e4e;
+	  border-radius: 100px;
+	  border: 1px solid #ac1d1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #9c2828;
+	}
+	.smallRedLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallRedLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallRedLightOn > .ld {
+	  font-size: initial
+	}
+
+
+	.smallRedLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 20px;
+	  height: 20px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(92%,30%,30%,0);
+	  border-radius: 100px;
+	  border: 1px solid #ac1d1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #9c2828;
+	}
+	.smallRedLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallRedLightOff > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallRedLightOff > .ld {
+	  font-size: initial
+	}
+
+	.smallOrangeLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 20px;
+	  height: 20px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #edcb4e;
+	  border-radius: 100px;
+	  border: 1px solid #d39b20;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #e0ac3a;
+	}
+
+	.smallOrangeLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallOrangeLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallOrangeLightOn > .ld {
+	  font-size: initial
+	}
+
+	.smallOrangeLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 20px;
+	  height: 20px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(92%,80%,30%,0);
+	  border-radius: 100px;
+	  border: 1px solid #d39b20;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #e0ac3a;
+	}
+	.smallOrangeLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallOrangeLightOff > i {
+	  color: #fff;
+	  font-size: 1em;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallOrangeLightOff > .ld {
+	  font-size: initial
+	}
+
+	.smallGreenLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 20px;
+	  height: 20px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #a2da8e;
+	  border-radius: 100px;
+	  border: 1px solid #25ac1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #529c28;
+	}
+	.smallGreenLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallGreenLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallGreenLightOn > .ld {
+	  font-size: initial
+	}
+
+	.smallGreenLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 20px;
+	  height: 20px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(64%,85%,56%,0);
+	  border-radius: 100px;
+	  border: 1px solid #25ac1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #529c28;
+	}
+	.smallGreenLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallGreenLightOff > i {
+	  color: #fff;
+	  font-size: 1em;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallGreenLightOff > .ld {
+	  font-size: initial
+	}
+
+
+	/* TCP Message type */
+	.helloMsg{
+	  background-color: #ffe0009e;
+	}
+
+	.goodbyeMsg{
+	  background-color: #00a0ff36;
+	}
+
+	.nackMsg{
+	  color: #ffff00;
+	  background-color: #a94442;
+	}
+
+	.ackMsg{
+	  background-color: #10ff0033;
+	}
+
+	.eventMsg{
+	  background-color: #0000ff36;
+	}
+	.eventOkMsg{
+	  background-color: #6eff0047;
+	}
+
+	.eventKoMsg{
+	  background-color: #ff0000b0;
+	}
+
+	.dataMsg{
+	  background-color: #ff76006b;
+	}
+
+	.monitoringRFIDMsg{
+	  background-color: #0f76006b;
+	}
+
+	.monitoringHWY{
+	  background-color: #0f76f06b;
+	}
+
+	.bottom-right{
+	   position: fixed;
+	   bottom: 0;
+	   right: 0;
+	 }
+
+	.row {
+	  margin-right: 0px;
+	  margin-left: 0px;
+	}
+	.nocursor {
+	  cursor:none;
+	}
+
+	.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+	  padding: 1px;
+	}
+	.table-striped>tbody>tr:nth-of-type(odd) {
+	    background-color: #77777731;
+	}
+
+	/* Tooltip */
+	.tooltipInfo .tooltip-inner{
+		background-color: #7DCF85;
+		/*color: #FFFFFF;*/
+		border: 1px solid green;
+		padding: 3px;
+		/*font-size: 12px;*/
+	}
+
+	.tooltip.in{
+		opacity: 1 !important;
+	}
+
+}
+
+@media screen and (max-width: 560px) {
+
+	.screenLarge{
+		display:none;
+	}
+	.screenSmall{
+		display:inherit;
+	}
+
+	.container {
+    padding-right: 2px;
+    padding-left: 2px;
+    margin-right: auto;
+    margin-left: auto;
+	}
+
+	h1{
+	  font-weight: bold;
+		font-size: 16px;
+	}
+	h3{
+	  font-size: 16px;
+	}
+	th {
+	  font-size: 12px;
+	}
+
+	td {
+	  font-size: 10px;
+	}
+
+	hr{
+		margin-top: 5px !important;
+		margin-bottom: 5px !important;
+	}
+	/* Traffic Light */
+	.trafficLight{
+	  background-color: #272727;
+	  border-radius: 10px;
+	  background: linear-gradient(180deg,#000000 0%,#1d1d1d 30%,#333333 60%,#757575 100%);
+	  box-shadow: 0px 1px 1px rgba(0%,0%,0%,0.6),0px 0px 5px #ffffff,0px 1px 0px 3px rgba(0%,0%,0%,0.8),inset 0px 1px 0px #ffffff;
+	  padding: 5px;
+	  margin-top: 0px;
+	  display: inline-grid;
+		width: 30px;
+	}
+
+	.smallTrafficLight{
+	  background-color: #272727;
+	  border-radius: 6px;
+	  background: linear-gradient(180deg,#000000 0%,#1d1d1d 30%,#333333 60%,#757575 100%);
+	  /* box-shadow: 0px 1px 1px rgba(0%,0%,0%,0.6), 0px 0px 5px #ffffff, 0px 1px 0px 3px rgba(0%,0%,0%,0.8), inset 0px 1px 0px #ffffff; */
+	  padding: 4px;
+	  display: inline-grid;
+	  margin-bottom: 10px;
+	  width: 16px;
+	}
+
+	.trafficSystemLight{
+	  background-color: #c1c1c1;
+	  border-radius: 10px;
+	  background: linear-gradient(180deg,#0000007a 0%,#1d1d1d29 30%,#3333331f 60%,#0000007a 100%);
+	  box-shadow: 0px 1px 1px rgba(0%,0%,0%,0.6), 0px 0px 5px #ffffff, 0px 1px 0px 3px rgba(0%,0%,0%,0.8), inset 0px 1px 0px #ffffff;
+	  padding: 5px;
+	  display: inline-grid;
+	  margin-left: 10px;
+	  margin-bottom: 10px;
+		width: 30px;
+	}
+
+	/* Flash class and keyframe animation */
+	.flashit{
+		-webkit-animation: flash linear 1s infinite;
+		animation: flash linear 1s infinite;
+	}
+	@-webkit-keyframes flash {
+		0% { opacity: 1; }
+		50% { opacity: .1; }
+		100% { opacity: 1; }
+	}
+	@keyframes flash {
+		0% { opacity: 1; }
+		50% { opacity: .1; }
+		100% { opacity: 1; }
+	}
+
+	.glyphicon-refresh-animate {
+	  -animation: spin .7s infinite linear;
+	  -webkit-animation: spin2 .7s infinite linear;
+	}
+
+	.glyphicon-margin{
+	}
+
+	@-webkit-keyframes spin2 {
+	    0% { -webkit-transform: scale(1) rotateY(0deg)}
+	    50% { -webkit-transform: scale(1) rotateY(180deg)}
+	    100% { -webkit-transform: scale(1) rotateY(0deg)}
+	}
+
+	@keyframes spin {
+	    from { transform: scale(1) rotate(0deg);}
+	    to { transform: scale(1) rotate(360deg);}
+	}
+
+	.redLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 10px;
+	  height: 10px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #ed4e4e;
+	  border-radius: 100px;
+	  border: 1px solid #ac1d1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 10px 10px 10px 10px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #9c2828;
+	}
+	.redLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.redLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.redLightOn > .ld {
+	  font-size: initial
+	}
+
+	.redLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 10px;
+	  height: 10px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(92%,30%,30%,0);
+	  border-radius: 100px;
+	  border: 1px solid #ac1d1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 10px 10px 10px 10px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #9c2828;
+	}
+	.redLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.redLightOff > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.redLightOff > .ld {
+	  font-size: initial
+	}
+
+	.orangeLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 10px;
+	  height: 10px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #edcb4e;
+	  border-radius: 100px;
+	  border: 1px solid #d39b20;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 10px 10px 10px 10px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #e0ac3a;
+	}
+	.orangeLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.orangeLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.orangeLightOn > .ld {
+	  font-size: initial
+	}
+
+	.orangeLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 10px;
+	  height: 10px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(92%,80%,30%,0);
+	  border-radius: 100px;
+	  border: 1px solid #d39b20;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 10px 10px 10px 10px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #e0ac3a;
+	}
+	.orangeLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.orangeLightOff > i {
+	  color: #fff;
+	  font-size: 1em;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.orangeLightOff > .ld {
+	  font-size: initial
+	}
+
+	.greenLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 10px;
+	  height: 10px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #a2da8e;
+	  border-radius: 100px;
+	  border: 1px solid #25ac1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 10px 10px 10px 10px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #529c28;
+	}
+	.greenLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.greenLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.greenLightOn > .ld {
+	  font-size: initial
+	}
+
+	.greenLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 10px;
+	  height: 10px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(64%,85%,56%,0);
+	  border-radius: 100px;
+	  border: 1px solid #25ac1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 10px 10px 10px 10px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #529c28;
+	}
+	.greenLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.greenLightOff > i {
+	  color: #fff;
+	  font-size: 1em;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.greenLightOff > .ld {
+	  font-size: initial
+	}
+
+	/* Small Traffic Light */
+	.smallRedLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 8px;
+	  height: 8px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #ed4e4e;
+	  border-radius: 100px;
+	  border: 1px solid #ac1d1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #9c2828;
+	}
+	.smallRedLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallRedLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallRedLightOn > .ld {
+	  font-size: initial
+	}
+
+	.smallRedLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 8px;
+	  height: 8px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(92%,30%,30%,0);
+	  border-radius: 100px;
+	  border: 1px solid #ac1d1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #9c2828;
+	}
+	.smallRedLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallRedLightOff > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallRedLightOff > .ld {
+	  font-size: initial
+	}
+
+	.smallOrangeLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 8px;
+	  height: 8px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #edcb4e;
+	  border-radius: 100px;
+	  border: 1px solid #d39b20;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #e0ac3a;
+	}
+	.smallOrangeLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallOrangeLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallOrangeLightOn > .ld {
+	  font-size: initial
+	}
+
+	.smallOrangeLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 8px;
+	  height: 8px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(92%,80%,30%,0);
+	  border-radius: 100px;
+	  border: 1px solid #d39b20;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #e0ac3a;
+	}
+	.smallOrangeLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallOrangeLightOff > i {
+	  color: #fff;
+	  font-size: 1em;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallOrangeLightOff > .ld {
+	  font-size: initial
+	}
+
+	.smallGreenLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 8px;
+	  height: 8px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #a2da8e;
+	  border-radius: 100px;
+	  border: 1px solid #25ac1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #529c28;
+	}
+	.smallGreenLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallGreenLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallGreenLightOn > .ld {
+	  font-size: initial
+	}
+
+	.smallGreenLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 8px;
+	  height: 8px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(64%,85%,56%,0);
+	  border-radius: 100px;
+	  border: 1px solid #25ac1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #529c28;
+	}
+	.smallGreenLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallGreenLightOff > i {
+	  color: #fff;
+	  font-size: 1em;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallGreenLightOff > .ld {
+	  font-size: initial
+	}
+
+
+	/* TCP Message type */
+	.helloMsg{
+	  background-color: #ffe0009e;
+	}
+
+	.goodbyeMsg{
+	  background-color: #00a0ff36;
+	}
+
+	.nackMsg{
+	  color: #ffff00;
+	  background-color: #a94442;
+	}
+
+	.ackMsg{
+	  background-color: #10ff0033;
+	}
+
+	.eventMsg{
+	  background-color: #0000ff36;
+	}
+	.eventOkMsg{
+	  background-color: #6eff0047;
+	}
+
+	.eventKoMsg{
+	  background-color: #ff0000b0;
+	}
+
+	.dataMsg{
+	  background-color: #ff76006b;
+	}
+
+	.monitoringRFIDMsg{
+	  background-color: #0f76006b;
+	}
+
+	.monitoringHWY{
+	  background-color: #0f76f06b;
+	}
+
+	.bottom-right{
+	   position: fixed;
+	   bottom: 0;
+	   right: 0;
+	 }
+
+	.row {
+	  margin-right: 0px;
+	  margin-left: 0px;
+	}
+	.nocursor {
+	  cursor:none;
+	}
+
+	.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+	  padding: 1px;
+	}
+	.table-striped>tbody>tr:nth-of-type(odd) {
+	    background-color: #77777731;
+	}
+
+	/* Tooltip */
+	.tooltipInfo .tooltip-inner{
+		background-color: #7DCF85;
+		/*color: #FFFFFF;*/
+		border: 1px solid green;
+		padding: 3px;
+		/*font-size: 12px;*/
+	}
+
+	.tooltip.in{
+		opacity: 1 !important;
+	}
+
+	/* Other info */
+	.otherInfo{
+	  margin-left:2px;
+	}
+
+	/* Data info */
+	.dataInfo{
+	  margin-left:2px;
+	}
+
+	.freeTurnstile{
+		height: 40px;
+		font-size:10px;
+		font-weight: 700;
+		color: white;
+	}
+
+	.freeTurnstileIcon{
+		padding-top:10px;
+		font-size:30px;
+		margin-left: -30px;
+	}
+
+	.freeTurnstileText{
+		padding-top:15px;
+		font-size:16px;
+		margin-left: -20px;
+	}
+
+	.abortTurnstile{
+		height: 40px;
+		font-size:10px;
+		font-weight: 700;
+		color: yellow;
+	}
+
+	.abortTurnstileIcon{
+		padding-top:10px;
+		font-size:30px;
+		margin-left: -30px;
+	}
+
+	.abortTurnstileText{
+		padding-top:15px;
+		font-size:16px;
+		margin-left: -20px;
+	}
+
+	.antennaTune{
+		margin-top:2px
+	}
+
+	.slidecontainer {
+		margin-top: 10px;
+	  width: 100%;
+	}
+
+	.slider {
+	  -webkit-appearance: none;
+	  width: 100%;
+	  height: 15px;
+	  border-radius: 5px;
+	  background: #d3d3d3;
+	  outline: none;
+	  opacity: 0.7;
+	  -webkit-transition: .2s;
+	  transition: opacity .2s;
+	}
+
+	.slider:hover {
+	  opacity: 1;
+	}
+
+	.slider::-webkit-slider-thumb {
+	  -webkit-appearance: none;
+	  appearance: none;
+	  width: 25px;
+	  height: 25px;
+	  border-radius: 50%;
+	  background: #4CAF50;
+	  cursor: pointer;
+	}
+
+	.slider::-moz-range-thumb {
+	  width: 25px;
+	  height: 25px;
+	  border-radius: 50%;
+	  background: #4CAF50;
+	  cursor: pointer;
+	}
+
+
+	/* log info */
+	.logInfoData{
+	  font-size: :10px;
+	  font-style:italic;
+	  margin-left:2px;
+	}
+
+	.logDebug{
+	  color:blue;
+	}
+	.logInfo{
+	  color:green;
+	}
+	.logError{
+	  background-color:red;
+	  color:white;
+	}
+	.logWarn{
+	  color:yellow;
+	}
+	.logFatal{
+	  background-color:yellow;
+	  color:white;
+	}
+
+	.detectionCount{
+		font-size: 16px;
+	}
+
+	/* Product info */
+	.productInfo{
+	  margin-left:2px;
+	}
+
+	.timestamp{
+	  font-size:8px;
+	}
+
+	.dag{
+	  font-size:10px;
+	  font-weight: 700;
+	}
+
+	.antenna{
+	  font-size:10px;
+	  font-weight: 700;
+	}
+
+	.userNameHisto{
+	  font-size:10px;
+	  font-weight: 700;
+	}
+
+	.userName{
+	  font-size:10px;
+	  font-weight: 700;
+		margin-left: 5px;
+	}
+
+	.error{
+	  font-size:10px;
+	  font-weight: 700;
+	  background-color: white;
+	  color : red;
+		padding: 5px;
+		text-align: center;
+	}
+
+	.itemDateHisto{
+		font-size:8px;
+	}
+
+	.productNameHisto{
+	  font-size:10px;
+	  font-weight: 700;
+	  /* color: white; */
+	}
+
+	.itemDate{
+		font-size:12px;
+	}
+
+	.productName{
+	  font-size:16px;
+	  font-weight: 700;
+	  /* color: white; */
+	}
+
+	.lastDetect{
+	  font-size:10px;
+	}
+	.position{
+	  font-weight: 700;
+	  font-size: 14px;
+	}
+	.nbDetect{
+	  font-size:10px;
+	}
+
+	.getHistory{
+		margin-top: 25px;
+	  margin-left: 10px;
+	}
+
+	.jsonCode{
+		width: 150px;
+		overflow-x: auto;
+		word-wrap: break-word;
+	}
+
+	.noData{
+		font-size: 16px;
+	}
+
+
+	.nbPassageByDay{
+		font-size: 16px;
+	}
+
+
+	.footer {
+	   position: fixed;
+	   left: 0;
+	   bottom: 0;
+	   width: 100%;
+		 background: white;
+	}
+
+	.systemHour{
+	  font-size: 10px;
+	  /* margin-right: 5px; */
+	  font-weight: bold;
+	  color: #3a3a3a;
+	}
+
+	.version{
+	  font-size: 10px;
+	}
+	.localIP{
+	  font-size: 10px;
+	}
+	.travelTime{
+	  font-size: 10px;
+	}
+	.pointCost{
+	  font-size: 10px;
+	}
+
+}

@@ -1,0 +1,300 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="./dist/js/angular.min.js"></script>
+    <script src="./dist/js/jquery.min.js"></script>
+    <script src="./dist/jquery-ui/jquery-ui.min.js"></script>
+    <script src="./dist/js/moment.min.js"></script>
+    <link rel="stylesheet" href="./dist/jquery-ui/jquery-ui.min.css">
+    <link rel="stylesheet" href="./dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="./dist/foundation-icons/foundation-icons.css">
+    <script src="./dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/dist/css/fontawesome-all.min.css">
+    <link href="./css/main.css" rel="stylesheet">
+    <link href="./css/spinner.css" rel="stylesheet">
+    <script src="./js/dag_access.js"></script>
+    <title>DAG Access Client</title>
+  </head>
+  <body>
+    <div ng-app="checkpointInfo" id="cd-checkpointInfo">
+      <div ng-controller="checkpointInfoCtrl">
+        <div  ng-class="desktop">
+          <div class="row">
+            <div class="col-xs-8 text-left">
+              <h1 ng-show="pointName!='...'"><i class="glyphicon glyphicon-map-marker"></i> {{pointName}} <span style="font-size:36px"> #{{nbDetections}}</span></h1>
+              <div class="spinner" ng-show="pointName=='...'">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+              </div>
+            </div>
+            <div class="col-xs-4 text-right">
+              <div style="margin-top:3px">
+                <div id='tameteo' style='font-family:Verdana;text-align:center;border:solid 1px #000000; background:#85D5F2; width:155px; padding:4px'>
+                  <a href='https://www.xn--mto-bmab.fr/le-petit-bornand-les-glieres' target='_blank' title='Météo Les glieres' style='font-weight: bold;font-size:14px;text-decoration:none;color:#000000;line-height:16px;'>Les Glières</a>
+                  <br/>
+                  <img src='https://www.xn--mto-bmab.fr/widget4/aa5162207a934c6c96f464738f065793.png?t=time()' border='1'></a>
+                </div>
+                <!-- weather widget start -->
+                <!-- <a target="_blank" href="https://hotelmix.fr/weather/la-mure-61972">
+                  <img src="https://w.bookcdn.com/weather/picture/31_61972_1_3_3498db_250_2980b9_ffffff_ffffff_1_2071c9_ffffff_0_6.png?scode=124&domid=581&anc_id=24285"  alt="booked.net"/>
+                </a> -->
+                <!-- weather widget end -->
+                <!-- <a target="_blank" href="https://hotelmix.fr/weather/autrans-53020"><img src="https://w.bookcdn.com/weather/picture/1_53020_1_3_e83515_160_ffffff_333333_08488D_1_ffffff_333333_0_6.png?scode=124&domid=581&anc_id=36003"  alt="booked.net"/></a> -->
+                <!-- <a target="_blank" href="https://hotelmix.fr/weather/autrans-53020"><img src="https://w.bookcdn.com/weather/picture/4_53020_1_3_137AE9_160_ffffff_333333_08488D_1_ffffff_333333_0_6.png?scode=124&domid=581&anc_id=93599"  alt="booked.net"/></a> -->
+                <!-- <a target="_blank" href="https://hotelmix.fr/weather/lanarce-190492"><img src="https://w.bookcdn.com/weather/picture/1_190492_1_3_137AE9_160_ffffff_333333_08488D_1_ffffff_333333_0_6.png?scode=124&domid=581&anc_id=787"  alt="booked.net"/></a> -->
+
+                <!-- <a href="http://www.meteo24.fr/" style="padding:0;background:none" target="_blank" title="Your weather service"><img src="http://www.meteo24.fr/meteo/hptool/logo_meteogroup.png" alt="" width="120" height="32" border="0" style="display:block;" /></a>
+                <div style="background-color:#102840;color:#00B0CA;font-family:Verdana,Arial,Tahoma,Times New Roman;font-weight:bold;font-size:10px;width:120px;text-align:center">
+                  <a href="http://www.meteo24.fr/fr/home/meteo-france-et-europe/temps-dans-le-monde/temps-des-villes/ville/33X3878/borne.html" target="_blank" style="color:#00B0CA;font-family:Verdana,Arial,Tahoma,Times New Roman;font-weight:bold;font-size:10px;padding:0;background:none" title="Detailed weather forecast for Météo Borne">Météo Borne</a>
+                </div> -->
+                <!-- <iframe width="120" height="120" scrolling="no" frameborder="0" src="http://www.meteo24.fr/meteo/hptool/index.php?cid=33X3878&cityName=Borne&l=fr&style=1&v=fr&ver=2&c1=00B0CA&c2=102840&c3=102840&c4=ffffff&c5=102840&c6=ffffff&c7=102840&f1a=1&f1b=2&f2a=1&f2b=1&f3a=1&f3b=1&ct1=1&ct2=2&ct3=6&ct4=0&ct5=0&fcd=1">
+                </iframe> -->
+                <!-- <div style="height:14px;width:120px;text-align:center;background-color:#f8b920">
+                  <a href="http://www.meteo24.fr/" target="_blank" style="background:none;padding:0;text-decoration:none;color:#000000;font-family:Verdana,Arial,Tahoma,Times New Roman;font-weight:bold;font-size:10px" title="Latest weather observations and 14 day forecasts for over 2 MM locations worldwide">&copy; meteo24.fr</a>
+                </div> -->
+                <!-- weather widget end -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-3 text-center">
+              <div class="trafficLight">
+                <div ng-class="redLightClass" style="margin-bottom:10px"></div>
+                <div ng-class="orangeLightClass" style="margin-bottom:10px"></div>
+                <div ng-class="greenLightClass"></div>
+              </div>
+              <!-- <div class="trafficSystemLight">
+                <span ng-class="redSystemLightClass" style="margin-bottom:10px"></span>
+                <span ng-class="orangeSystemLightClass" style="margin-bottom:10px"></span>
+                <span ng-class="greenSystemLightclass"></span>
+              </div> -->
+            </div>
+            <div class="col-xs-9 text-center">
+              <div class="row">
+                <!-- <div class="col-xs-12" class="text-left" ng-class="data.msgType=='hello'?'helloMsg':(data.msgType=='ack'?'ackMsg':(data.msgType=='nack'?'nackMsg':(data.msgType=='event'?(data.payLoad.type=='ok'?'eventOkMsg':(data.payLoad.type=='ko'?'eventKoMsg':'eventMsg')):(data.msgType=='goodbye'?'goodbyeMsg':(data.msgType=='data'?'dataMsg':'')))))"> -->
+                <div class="col-xs-12" class="text-left">
+                  <div ng-switch="data.msgType">
+                      <div class="productInfo" ng-switch-when="event">
+                        <div ng-switch="data.payLoad.type">
+                          <div class="dataInfo" ng-switch-when="ok|ko|alreadyOk" ng-switch-when-separator="|">
+                            <div class="row">
+                              <div class="col-xs-9 col-sm-9 col-xl-9">
+                                <div  class="dag">
+                                  <i class="fas fa-id-card"></i> <span class="">{{data.payLoad.ticket.uidDAG}}</span>
+                                </div>
+                                <div ng-switch="data.payLoad.ticket.itemType">
+                                  <div ng-switch-when="0"> <!-- Season product -->
+                                    <div ng-if="data.msgType=='event' && data.payLoad.ticket != null">
+                                      <i class="fas fa-snowflake" style="font-size:24px"></i> <span class="productName">{{data.payLoad.ticket.itemDesignation}}</span>
+                                    </div>
+                                    <div class="itemDate" ng-if="data.msgType=='event' && data.payLoad.ticket != null">
+                                      <i class="far fa-calendar-alt" style="font-size:24px"></i> {{dateFormat(data.payLoad.ticket.itemStartDate)}} <i class="glyphicon glyphicon-arrow-right"></i> {{dateFormat(data.payLoad.ticket.itemEndDate)}}
+                                    </div>
+                                  </div>
+                                  <div ng-switch-when="1"> <!-- Days product -->
+                                    <div ng-if="data.msgType=='event' && data.payLoad.ticket != null">
+                                      <i class="fas fa-calendar-check" style="font-size:16px"></i> <span class="productName">{{data.payLoad.ticket.itemDesignation}}</span>
+                                    </div>
+                                    <div class="useFromDate" ng-if="data.msgType=='event' && data.payLoad.ticket != null && data.payLoad.ticket.UseFromDay == true">
+                                      Use From Date: {{dateFormat(data.payLoad.ticket.UseFromDate)}}
+                                    </div>
+                                    <div class="rfidDate" ng-if="data.msgType=='event' && data.payLoad.ticket != null">
+                                      RFID Date: {{dateFormat(data.payLoad.ticket.dDate_Debut_Validite_RFID)}} <i class="glyphicon glyphicon-arrow-right"></i> {{dateFormat(data.payLoad.ticket.dDate_Fin_Validite_RFID)}}
+                                    </div>
+                                  </div>
+                                  <div ng-switch-when="2"> <!-- Time product -->
+                                    <div ng-if="data.msgType=='event' && data.payLoad.ticket != null">
+                                      <i class="fas fa-hourglass-start" style="font-size:14px"></i> <span class="productName">{{data.payLoad.ticket.itemDesignation}}</span>
+                                    </div>
+                                    <div class="useFromDate" ng-if="data.msgType=='event' && data.payLoad.ticket != null && data.payLoad.ticket.UseFromDay == true">
+                                      Use From Date: {{dateFormat(data.payLoad.ticket.UseFromDate)}}
+                                    </div>
+                                    <div class="rfidDate" ng-if="data.msgType=='event' && data.payLoad.ticket != null">
+                                      RFID Date: {{dateFormat(data.payLoad.ticket.dDate_Debut_Validite_RFID)}} <i class="glyphicon glyphicon-arrow-right"></i> {{dateFormat(data.payLoad.ticket.dDate_Fin_Validite_RFID)}}
+                                    </div>
+                                  </div>
+                                  <div ng-switch-when="3"> <!-- Points product -->
+                                    <div ng-if="data.msgType=='event' && data.payLoad.ticket != null">
+                                      <i class="fi-die-five" style="font-size:18px"></i> <span class="productName">{{data.payLoad.ticket.itemDesignation}}</span>
+                                    </div>
+                                    <div class="qtyAfterRFID" ng-if="data.msgType=='event' && data.payLoad.ticket != null">
+                                      qtyAfterRFID: {{data.payLoad.ticket.qtyAfterRFID}}
+                                    </div>
+                                  </div>
+                                  <div ng-switch-when="5"> <!-- OpenPass Season product -->
+                                    <div  class="dag">
+                                      <i class="fas fa-id-card"></i> <span class="">{{data.payLoad.ticket.OpenPassTicketDAG.NumOpenPass}}</span>
+                                    </div>
+                                    <div ng-if="data.msgType=='event' && data.payLoad.ticket != null">
+                                      <i class="fas fa-snowflake" style="font-size:24px"></i> <span class="productName">{{data.payLoad.ticket.itemDesignation}}</span>
+                                    </div>
+                                    <div class="itemDate" ng-if="data.msgType=='event' && data.payLoad.ticket != null">
+                                      <i class="far fa-calendar-alt" style="font-size:24px"></i> {{dateFormat(data.payLoad.ticket.dDate_Debut_Validite_RFID)}} <i class="glyphicon glyphicon-arrow-right"></i> {{dateFormat(data.payLoad.ticket.dDate_Fin_Validite_RFID)}}
+                                    </div>
+                                  </div>
+                                  <div class="error" ng-if="data.msgType=='event' && data.payLoad.ticket != null && data.payLoad.ticket.errorDescription[0].indexOf('No error') == -1">
+                                    <i class="glyphicon glyphicon-alert"></i> {{data.payLoad.ticket.errorDescription | join:' / '}}
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-xs-3 col-sm-3 col-xl-3 text-center">
+                                <div class="" ng-if="data.payLoad.ticket.userInfo != null">
+                                  <div ng-if="data.payLoad.ticket.userInfo.img.length > 0">
+                                    <img class="userPhoto" ng-src="./photo/{{data.payLoad.ticket.userInfo.img}}">
+                                  </div>
+                                  <div class="userName">
+                                    {{data.payLoad.ticket.userInfo.name}} {{data.payLoad.ticket.userInfo.firstName}}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="freeTurnstile" ng-switch-when="freeTurnstile">
+                            <div class="row">
+                              <div class="col-xs-4 text-right" style="padding-top:24px">
+                                <i class="fas fa-arrow-circle-up" style="font-size:50px"></i>
+                              </div>
+                              <div class="col-xs-8 text-left" style="padding-top:30px">
+                                  <span>Passage Libéré</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="dataInfo" ng-switch-default>
+                            {{data.data}}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="dataInfo" ng-switch-when="data">
+                        {{data.data}}
+                      </div>
+                      <div class="logInfo" ng-switch-when="log" ng-class="data.text.indexOf('Exception')>0?'nackMsg':''">
+                        {{data.text}}
+                      </div>
+                      <div class="otherInfo" ng-switch-default>
+                        {{data.data}}
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer">
+           <div class="row advertising-1">
+              <div class="col-xs-12 text-center">
+                <div class="item-1">
+                  <div>
+                    Nos partenaires
+                  </div>
+                  <div class="logo">
+                    <img class="adv-logo" src="https://domainenordiquedesglieres.com/wp-content/uploads/2019/09/160523-logoSMG-300x283.jpg">
+                    <img class="adv-logo" src="https://domainenordiquedesglieres.com/wp-content/uploads/2021/09/tn_Sans-titre-1.jpg">
+                  </div>
+                </div>
+                <div class="item-2">
+                  <div>
+                    New DAG System control center
+                  </div>
+                  <div class="logo">
+                    <img src="/image/dag.png" height="50px">
+                  </div>
+                </div>
+                <div class="item-3">
+                  <div>
+                    <i class="fas fa-sun"></i> Bienvenue sur le domaine nordique des Glières
+                  </div>
+                  <div class="logo">
+                    <img class="adv-logo" src="https://domainenordiquedesglieres.com/wp-content/uploads/2019/09/logo-haute-savoie-nordic-1.png">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row technicalInfo">
+              <div class="col-xs-7 screenLarge">
+                <div class="row">
+                  <div class="col-xs-4">
+                    <div class="version">
+                      <i class="fas fa-code-branch"></i> Version: {{rpiVersion}}
+                    </div>
+                    <div class="version">
+                      <i class="fas fa-code"></i> Version client: {{accessClientVersion}}
+                    </div>
+                    <div class="localIP">
+                      <i class="glyphicon glyphicon-link"></i> IP: {{DAGLiveLocalIpAddress.split(':')[0]}}
+                    </div>
+                    <div class="travelTime">
+                      <i class="fas fa-history"></i> {{travelTime}}s
+                    </div>
+                    <div class="pointCost">
+                      <i class="fi-die-two" style="font-size:12px;"></i> {{pointCost}} point(s)
+                    </div>
+                  </div>
+                  <div class="col-xs-8">
+                    <div class="btn btn-xs btn-success" ng-show="tcpconnectOK" ng-click="resetTCP()"><i class="fas fa-wifi glyphicon-margin"></i><span class="screenLarge"> Connected</span></div>
+                    <div class="btn btn-xs btn-danger" ng-show="!tcpconnectOK" ng-click="resetTCP()"><i class="fas fa-wifi glyphicon-margin"></i><span class="screenLarge"> Disconnected</span></div>
+                    <div class="btn btn-xs" ng-class="stateHwItem.stateHw"><i class="fas fa-cubes" ng-class="stateHwItem.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge">  PRN</span></div>
+                    <div class="btn btn-xs" ng-class="stateHwEvent.stateHw"><i class="fas fa-flag-checkered" ng-class="stateHwEvent.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge">  Detection</span></div>
+                    <div class="btn btn-xs" ng-class="stateHwSetup.stateHw"><i class="fas fa-sliders-h" ng-class="stateHwSetup.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i></i><span class="screenLarge">  Ini</span></div>
+                    <div class="btn btn-xs" ng-class="stateHwIhm.stateHw"><i class="fas fa-video" ng-class="stateHwIhm.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge">  Sound + pict</span></div>
+                    <div class="btn btn-xs" ng-class="stateHwOpenpass.stateHw"><i class="fab fa-opera" ng-class="stateHwOpenpass.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge"> Openpass</span></div>
+                    <div class="btn btn-xs" ng-class="stateHwData.stateHw"><i class="fas fa-shopping-cart" ng-class="stateHwData.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge">  Virtual</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-7 screenSmall">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="version">
+                      <i class="fas fa-code-branch"></i> Version: {{rpiVersion}}
+                    </div>
+                    <div class="localIP">
+                      <i class="glyphicon glyphicon-link"></i> IP: {{DAGLiveLocalIpAddress.split(':')[0]}}
+                    </div>
+                    <span class="travelTime"><i class="fas fa-history"></i> {{travelTime}}s</span><span class="pointCost"> <i class="fi-die-two" style="font-size:12px;"></i> {{pointCost}} point(s)
+                    </span>
+                  </div>
+                  <div class="col-xs-12">
+                    <div class="btn btn-xs btn-success" ng-show="tcpconnectOK" ng-click="resetTCP()"><i class="fas fa-wifi glyphicon-margin"></i><span class="screenLarge"> Connected</span></div>
+                    <div class="btn btn-xs btn-danger" ng-show="!tcpconnectOK" ng-click="resetTCP()"><i class="fas fa-wifi glyphicon-margin"></i><span class="screenLarge"> Disconnected</span></div>
+                    <div class="btn btn-xs" ng-class="stateHwItem.stateHw"><i class="fas fa-cubes" ng-class="stateHwItem.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge">  PRN</span></div>
+                    <div class="btn btn-xs" ng-class="stateHwEvent.stateHw"><i class="fas fa-flag-checkered" ng-class="stateHwEvent.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge">  Detection</span></div>
+                    <div class="btn btn-xs" ng-class="stateHwSetup.stateHw"><i class="fas fa-sliders-h" ng-class="stateHwSetup.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i></i><span class="screenLarge">  Ini</span></div>
+                    <div class="btn btn-xs" ng-class="stateHwIhm.stateHw"><i class="fas fa-video" ng-class="stateHwIhm.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge">  Sound + pict</span></div>
+                    <div class="btn btn-xs" ng-class="stateHwOpenpass.stateHw"><i class="fab fa-opera" ng-class="stateHwOpenpass.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge"> Openpass</span></div>
+                    <div class="btn btn-xs" ng-class="stateHwData.stateHw"><i class="fas fa-shopping-cart" ng-class="stateHwData.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge">  Virtual</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-5 text-right screenLarge" style="margin-left: -30px;">
+                <span class="systemHour">{{systemDate}} - {{systemHour}}</span>
+                <span><img src="/image/dag.png" height="30px" style="padding-bottom:10px;"></span>
+              </div>
+              <div class="col-xs-5 text-right screenSmall" style="margin-left: -30px;">
+                <div class="row">
+                  <div class="col-xs-12 text-center systemHour">
+                    {{systemDate}}
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12 text-center systemHour">
+                    {{systemHour}}
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12 text-center">
+                    <span><img src="/image/dag.png" height="30px" style="padding-bottom:10px;"></span>
+                  </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

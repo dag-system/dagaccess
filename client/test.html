@@ -1,0 +1,1314 @@
+<html ng-app="checkpointInfo" ng-controller="checkpointInfoCtrl">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="./dist/js/angular.min.js"></script>
+    <script src="./dist/js/angular-sanitize.min.js"></script>
+    <script src="./dist/js/jquery.min.js"></script>
+    <script src="./dist/jquery-ui/jquery-ui.min.js"></script>
+    <script src="./dist/js/moment.min.js"></script>
+    <link rel="stylesheet" href="./dist/jquery-ui/jquery-ui.min.css">
+    <link rel="stylesheet" href="./dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="./dist/foundation-icons/foundation-icons.css">
+    <script src="./dist/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="/dist/css/fontawesome-all.min.css">
+    <link href="./css/dag.css" rel="stylesheet">
+    <link href="./css/spinner.css" rel="stylesheet">
+    <script src="./js/dag_access_test.js"></script>
+    <title ng-bind="header">DAG Access</title>
+  </head>
+  <body>
+    <div  id="cd-checkpointInfo">
+      <div >
+        <div ng-class="{'nocursor': desktop == null}">
+          <div class="container">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="row screenLarge">
+                  <div class="col-xs-1">
+                    <img src="/image/dag.png" height="30px" style="margin-top:10px">
+                  </div>
+                  <div class="col-xs-9 text-center">
+                    <h1 ng-show="pointName!='...'"><i class="glyphicon glyphicon-map-marker"></i> {{pointName}} <span class="detectionCount"> #{{nbDetections}}</span></h1>
+                    <div class="spinner text-center" ng-show="pointName=='...'">
+                      <div class="rect1"></div>
+                      <div class="rect2"></div>
+                      <div class="rect3"></div>
+                      <div class="rect4"></div>
+                      <div class="rect5"></div>
+                    </div>
+                  </div>
+                  <div class="col-xs-1">
+                    <img src="/image/dag.png" height="30px" style="margin-top:10px" ng-click="resetTCP()">
+                  </div>
+                </div>
+                <div class="row screenSmall">
+                  <div class="col-xs-3">
+                    <img src="/image/dag.png" height="30px" style="margin-top:10px">
+                  </div>
+                  <div class="col-xs-6 text-center">
+                    <h1 ng-show="pointName!='...'"><i class="glyphicon glyphicon-map-marker"></i> {{pointName}} <span class="detectionCount"> #{{nbDetections}}</span></h1>
+                    <div class="spinner text-center" ng-show="pointName=='...'">
+                      <div class="rect1"></div>
+                      <div class="rect2"></div>
+                      <div class="rect3"></div>
+                      <div class="rect4"></div>
+                      <div class="rect5"></div>
+                    </div>
+                  </div>
+                  <div class="col-xs-3">
+                    <img src="/image/dag.png" height="30px" style="margin-top:10px" ng-click="resetTCP()">
+                  </div>
+                </div>
+              </div>
+              <div class="panel-body">
+                <ul class="nav nav-tabs">
+        					<li class="active">
+                    <a data-toggle="tab" href="#detectionPointInfo"><i class="glyphicon glyphicon-map-marker"></i> Infos</a>
+                  </li>
+        					<li>
+                    <a data-toggle="tab" href="#settings" ng-click="getInfoRFID()"><i class="fas fa-sliders-h"></i> Réglages</a>
+                  </li>
+                  <li>
+                    <a data-toggle="tab" href="#advancedSettings"><i class="fas fa-cogs"></i> Options</a>
+                  </li>
+        				</ul>
+
+        				<div class="tab-content">
+                  <div id="detectionPointInfo" class="tab-pane fade in active">
+                    <div class="row">
+                      <div class="col-xs-12 text-center">
+                        <button class="btn antennaTune" ng-class="freeTurnstileClass" ng-click="freeTurnstile()">Libération</button>
+                        <button class="btn antennaTune" ng-class="antennaTuneClass" ng-click="antennaTune()" ng-show="reader.typeReader=='ANDEA' || reader.typeReader=='SUC' || reader.typeReader=='LRD'">Réglage Antenne</button>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row trafficLightInfo">
+                      <div class="col-xs-12 text-center">
+                        <div class="trafficLight">
+                          <span ng-class="redLightClass" style="margin-right:10px"></span>
+                          <span ng-class="orangeLightClass" style="margin-right:10px"></span>
+                          <span ng-class="greenLightClass"></span>
+                        </div>
+                        <div class="trafficSystemLight">
+                          <span ng-class="redSystemLightClass" style="margin-right:10px"></span>
+                          <span ng-class="orangeSystemLightClass" style="margin-right:10px"></span>
+                          <span ng-class="greenSystemLightclass"></span>
+                        </div>
+                        <span>
+                          <button class="btn btn-primary getHistory" ng-click="getHistory(0)" data-toggle="modal" data-target="#histoCheckpointModal" ><span class="glyphicon glyphicon-search"></span> Historique</button>
+                          <button class="btn getHistory" ng-click="clearRx()">Clear info</button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="row Log">
+                      <div class="col-xs-12 col-sm-12 col-xl-12 text-center nopadding">
+                        <div class="table-responsive" style="min-height:500px;overflow-y:auto">
+                          <table class="table table-striped table-bordered text-center">
+                            <thead>
+                              <tr>
+                                <th  class="text-center">Date</th>
+                                <th  class="text-center">Informations</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr ng-repeat="data in datas">
+                                <td class="timestamp" ng-class="data.data.msgType=='hello'?'helloMsg':(data.data.msgType=='ack'?'ackMsg':(data.data.msgType=='nack'?'nackMsg':(data.data.msgType=='event'?(data.data.payLoad.type=='ok' || data.data.payLoad.type=='idle'?'eventOkMsg':(data.data.payLoad.type=='ko'?'eventKoMsg':'eventMsg')):(data.data.msgType=='goodbye'?'goodbyeMsg':(data.data.msgType=='data'?'dataMsg':(data.data.msgType=='monitoringRFID'?'monitoringRFIDMsg':(data.data.msgType=='monitoringHWY'?'monitoringHWY':'')))))))">
+                                  <div class="screenLarge">
+                                    {{data.fulldate}}
+                                  </div>
+                                  <div class="screenSmall">
+                                    <div class="row text-center">
+                                      <div class="col-xs-12 nopadding">
+                                        {{data.date}}
+                                      </div>
+                                    </div>
+                                    <div class="row text-center">
+                                      <div class="col-xs-12 nopadding">
+                                        {{data.time}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row text-center">
+                                    <div class="col-xs-12 nopadding">
+                                      <div class="smallTrafficLight" ng-if="data.data.msgType=='event' && (data.data.payLoad.ticket != null || data.data.payLoad.type == 'freeTurnstile' || data.data.payLoad.type == 'abortTurnstile' || data.data.payLoad.type == 'alreadyKo' || data.data.payLoad.type == 'alreadyOk' || data.data.payLoad.type == 'idle')" style="margin-left:10px">
+                                        <span class="smallRedLightOff" ng-if="data.data.payLoad.ticket.visual.red==0 || data.data.payLoad.visual.red==0" style="margin-right:10px"></span>
+                                        <span class="smallRedLightOn" ng-if="data.data.payLoad.ticket.visual.red>=1 || data.data.payLoad.visual.red>=1" style="margin-right:10px"></span>
+                                        <span class="smallOrangeLightOff" ng-if="data.data.payLoad.ticket.visual.orange==0 || data.data.payLoad.visual.orange==0" style="margin-right:10px"></span>
+                                        <span class="smallOrangeLightOn" ng-if="data.data.payLoad.ticket.visual.orange>=1 || data.data.payLoad.visual.orange>=1" style="margin-right:10px"></span>
+                                        <span class="smallGreenLightOff" ng-if="data.data.payLoad.ticket.visual.green==0 || data.data.payLoad.visual.green==0"></span>
+                                        <span class="smallGreenLightOn" ng-if="data.data.payLoad.ticket.visual.green>=1 || data.data.payLoad.visual.green>=1"></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td class="text-left tooltipInfo" data-toggle="tooltip" data-placement="bottom" title="copy : {{data.data | json:0 | limitTo:100}}...." ng-click="copy(data)" ng-class="data.data.msgType=='hello'?'helloMsg':(data.data.msgType=='ack'?'ackMsg':(data.data.msgType=='nack'?'nackMsg':(data.data.msgType=='event'?(data.data.payLoad.type=='ok' || data.data.payLoad.type=='alreadyOk' || data.data.payLoad.type=='idle'?'eventOkMsg':(data.data.payLoad.type=='ko' || data.data.payLoad.type=='alreadyKo'?'eventKoMsg':'eventMsg')):(data.data.msgType=='goodbye'?'goodbyeMsg':(data.data.msgType=='data'?'dataMsg':(data.data.msgType=='monitoringRFID'?'monitoringRFIDMsg':(data.data.msgType=='monitoringHWY'?'monitoringHWY':'')))))))">
+                                  <div ng-switch="data.data.msgType">
+                                    <div class="productInfo" ng-switch-when="event">
+                                      <div ng-switch="data.data.payLoad.type">
+                                        <div class="dataInfo" ng-switch-when="ok|alreadyOk|ko|alreadyKo" ng-switch-when-separator="|">
+                                          <div class="row" >
+                                            <div class="col-xs-7 nopadding">
+                                              <div  class="dag">
+                                                <div class="screenLarge">
+                                                  <i class="fas fa-tags"></i> <span class="">{{data.data.payLoad.ticket.uidDAG}}</span><i class="fas fa-arrow-right"></i> <i class="glyphicon glyphicon-barcode"></i> <span class="">{{data.data.payLoad.ticket.serialNumber}}</span>
+                                                  <span class="antenna" ng-if="data.data.msgType=='event' && data.data.payLoad.ticket != null">
+                                                    <i class="fas fa-wifi"></i> {{data.data.payLoad.ticket.antennaID}}
+                                                  </span>
+                                                  <button class="btn btn-xs btn-default" ng-click="getTagHistory(data.data.payLoad.ticket.uidDAG,0)" data-toggle="modal" data-target="#histoDagModal{{$index}}"><span class="glyphicon glyphicon-search"></span> Histo</button>
+                                                </div>
+                                                <div class="screenSmall">
+                                                  <i class="fas fa-tags"></i> <span class="">{{data.data.payLoad.ticket.uidDAG}}</span></br><i class="fas fa-arrow-right"></i> <i class="glyphicon glyphicon-barcode"></i> <span class="">{{data.data.payLoad.ticket.serialNumber}}</span>
+                                                  <span class="antenna" ng-if="data.data.msgType=='event' && data.data.payLoad.ticket != null">
+                                                    <i class="fas fa-wifi"></i> {{data.data.payLoad.ticket.antennaID}}
+                                                  </span>
+                                                  <button class="btn btn-xs btn-default" ng-click="getTagHistory(data.data.payLoad.ticket.uidDAG,0)" data-toggle="modal" data-target="#histoDagModal{{$index}}"><span class="glyphicon glyphicon-search"></span> Histo</button>
+                                                </div>
+
+                                                <!-- Modal Histo DAG -->
+                                                <div class="modal fade" id="histoDagModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="histoDagModalLabel{{$index}}" aria-hidden="true">
+                                                  <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                      <div class="modal-header">
+                                                        <h3 class="modal-title" id="histoDagModalLabel{{$index}}">Historique DAG : {{data.data.payLoad.ticket.uidDAG}}</h3>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                          <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                      </div>
+                                                      <div class="modal-body">
+                                                        <div class="row">
+                                                          <div class="col-xs-12 col-sm-12 col-xl-12 text-center nopadding" ng-show="histos.length > 0">
+                                                            <div class="table-responsive" style="max-height:500px">
+                                                              <table class="table table-striped table-bordered text-center">
+                                                                <thead>
+                                                                  <tr>
+                                                                    <th  class="text-center">Date</th>
+                                                                    <th  class="text-center">Informations</th>
+                                                                  </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                  <tr ng-repeat="histo in histos">
+                                                                    <td class="timestamp" ng-class="histo.data.msgType=='hello'?'helloMsg':(histo.data.msgType=='ack'?'ackMsg':(histo.data.msgType=='nack'?'nackMsg':(histo.data.msgType=='event'?(histo.data.payLoad.type=='ok' || histo.data.payLoad.type=='alreadyOk'?'eventOkMsg':(histo.data.payLoad.type=='ko' || histo.data.payLoad.type=='alreadyKo'?'eventKoMsg':'eventMsg')):(histo.data.msgType=='goodbye'?'goodbyeMsg':(histo.data.msgType=='data'?'dataMsg':(histo.data.msgType=='monitoringRFID'?'monitoringRFIDMsg':(histo.data.msgType=='monitoringHWY'?'monitoringHWY':'')))))))">
+                                                                      <div>
+                                                                        {{histo.fulldate}}
+                                                                      </div>
+                                                                      <div class="smallTrafficLight" ng-if="histo.data.msgType=='event' && (histo.data.payLoad.ticket != null || histo.data.payLoad.type == 'freeTurnstile' || histo.data.payLoad.type == 'abortTurnstile')" style="margin-left:10px">
+                                                                        <span class="smallRedLightOff" ng-if="histo.data.payLoad.ticket.visual.red==0 || histo.data.payLoad.visual.red==0" style="margin-right:10px"></span>
+                                                                        <span class="smallRedLightOn" ng-if="histo.data.payLoad.ticket.visual.red>=1 || histo.data.payLoad.visual.red>=1" style="margin-right:10px"></span>
+                                                                        <span class="smallOrangeLightOff" ng-if="histo.data.payLoad.ticket.visual.orange==0 || histo.data.payLoad.visual.orange==0" style="margin-right:10px"></span>
+                                                                        <span class="smallOrangeLightOn" ng-if="histo.data.payLoad.ticket.visual.orange>=1 || histo.data.payLoad.visual.orange>=1" style="margin-right:10px"></span>
+                                                                        <span class="smallGreenLightOff" ng-if="histo.data.payLoad.ticket.visual.green==0 || histo.data.payLoad.visual.green==0"></span>
+                                                                        <span class="smallGreenLightOn" ng-if="histo.data.payLoad.ticket.visual.green>=1 || histo.data.payLoad.visual.green>=1"></span>
+                                                                      </div>
+                                                                    </td>
+                                                                    <td class="text-left tooltipInfo" data-toggle="tooltip" data-placement="left" title="copy : {{histo.data | json:0 | limitTo:100}}...." ng-click="copy(data)" ng-class="histo.data.msgType=='hello'?'helloMsg':(histo.data.msgType=='ack'?'ackMsg':(histo.data.msgType=='nack'?'nackMsg':(histo.data.msgType=='event'?(histo.data.payLoad.type=='ok' || histo.data.payLoad.type=='alreadyOk'?'eventOkMsg':(histo.data.payLoad.type=='ko'||histo.data.payLoad.type=='alreadyKo'?'eventKoMsg':'eventMsg')):(histo.data.msgType=='goodbye'?'goodbyeMsg':(histo.data.msgType=='data'?'dataMsg':(histo.data.msgType=='monitoringRFID'?'monitoringRFIDMsg':(histo.data.msgType=='monitoringHWY'?'monitoringHWY':'')))))))">
+                                                                      <div ng-switch="histo.data.msgType">
+                                                                        <div class="productInfo" ng-switch-when="event">
+                                                                          <div ng-switch="histo.data.payLoad.type">
+                                                                            <div class="dataInfo" ng-switch-when="ok|alreadyOk|ko|alreadyKo" ng-switch-when-separator="|">
+                                                                              <div class="row">
+                                                                                <div class="col-xs-9 nopadding">
+                                                                                  <div  class="dag">
+                                                                                    <i class="fas fa-tags"></i> <span class="">{{histo.data.payLoad.ticket.uidDAG}}</span> <i class="fas fa-arrow-right"></i> <i class="glyphicon glyphicon-barcode"></i> <span class="">{{histo.data.payLoad.ticket.serialNumber}}</span>
+                                                                                    <span class="antenna" ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null">
+                                                                                      <i class="fas fa-wifi"></i> {{histo.data.payLoad.ticket.antennaID}}
+                                                                                    </span>
+                                                                                  </div>
+                                                                                  <div ng-switch="histo.data.payLoad.ticket.itemType">
+                                                                                    <div ng-switch-when="0"> <!-- Season product -->
+                                                                                      <div ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null" class="productNameHisto">
+                                                                                        <i class="fas fa-snowflake"></i> <span>{{histo.data.payLoad.ticket.itemDesignation}}</span>
+                                                                                      </div>
+                                                                                      <div class="itemDateHisto" ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null">
+                                                                                        Date validité: {{dateFormat(histo.data.payLoad.ticket.itemStartDate)}} <i class="glyphicon glyphicon-arrow-right"></i> {{dateFormat(histo.data.payLoad.ticket.itemEndDate)}}
+                                                                                      </div>
+                                                                                    </div>
+                                                                                    <div ng-switch-when="1"> <!-- Days product -->
+                                                                                      <div ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null">
+                                                                                        <i class="fas fa-calendar-check" style="font-size:16px"></i> <span class="productNameHisto">{{histo.data.payLoad.ticket.itemDesignation}}</span>
+                                                                                      </div>
+                                                                                      <div class="itemDateHisto" ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null && data.payLoad.ticket.UseFromDay == true">
+                                                                                        Use From Date: {{dateFormat(histo.data.payLoad.ticket.UseFromDate)}}
+                                                                                      </div>
+                                                                                      <div class="itemDateHisto" ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null">
+                                                                                        RFID Date: {{dateFormat(histo.data.payLoad.ticket.dDate_Debut_Validite_RFID)}} <i class="glyphicon glyphicon-arrow-right"></i> {{dateFormat(histo.data.payLoad.ticket.dDate_Fin_Validite_RFID)}}
+                                                                                      </div>
+                                                                                    </div>
+                                                                                    <div ng-switch-when="2"> <!-- Time product -->
+                                                                                      <div ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null">
+                                                                                        <i class="fas fa-hourglass-start" style="font-size:14px"></i> <span class="productNameHisto">{{histo.data.payLoad.ticket.itemDesignation}}</span>
+                                                                                      </div>
+                                                                                      <div class="itemDateHisto" ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null && data.payLoad.ticket.UseFromDay == true">
+                                                                                        Use From Date: {{momentFormat(histo.data.payLoad.ticket.UseFromDate)}}
+                                                                                      </div>
+                                                                                      <div class="itemDateHisto" ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null">
+                                                                                        RFID Date: {{momentFormat(histo.data.payLoad.ticket.dDate_Debut_Validite_RFID)}} <i class="glyphicon glyphicon-arrow-right"></i> {{momentFormat(histo.data.payLoad.ticket.dDate_Fin_Validite_RFID)}}
+                                                                                      </div>
+                                                                                    </div>
+                                                                                    <div ng-switch-when="3"> <!-- Points product -->
+                                                                                      <div ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null">
+                                                                                        <i class="fi-die-five" style="font-size:18px"></i> <span class="productNameHisto">{{histo.data.payLoad.ticket.itemDesignation}}</span>
+                                                                                      </div>
+                                                                                      <div class="itemDateHisto" ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null">
+                                                                                        qtyAfterRFID: {{histo.data.payLoad.ticket.qtyAfterRFID}}
+                                                                                      </div>
+                                                                                    </div>
+                                                                                    <div ng-switch-when="5"> <!-- Season product -->
+                                                                                      <div ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null" class="productNameHisto">
+                                                                                        <i class="fas fa-snowflake"></i> <span>{{histo.data.payLoad.ticket.itemDesignation}}</span>
+                                                                                      </div>
+                                                                                      <div class="itemDateHisto" ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null">
+                                                                                        Date validité: {{dateFormat(histo.data.payLoad.ticket.dDate_Debut_Validite_RFID)}} <i class="glyphicon glyphicon-arrow-right"></i> {{dateFormat(histo.data.payLoad.ticket.dDate_Fin_Validite_RFID)}}
+                                                                                      </div>
+                                                                                    </div>
+                                                                                    <div class="error" ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null && histo.data.payLoad.ticket.errorDescription[0].indexOf('No error') == -1">
+                                                                                      <i class="glyphicon glyphicon-alert"></i> {{histo.data.payLoad.ticket.errorDescription | join:' / '}}
+                                                                                    </div>
+                                                                                  </div>
+                                                                                </div>
+                                                                                <div class="col-xs-3 text-center nopadding">
+                                                                                  <div class="" ng-if="histo.data.payLoad.ticket.userInfo != null">
+                                                                                    <div ng-if="histo.data.payLoad.ticket.userInfo.img.length > 0">
+                                                                                      <img ng-src="./photo/{{histo.data.payLoad.ticket.userInfo.img}}?dummy={{tick}}" height="50px">
+                                                                                    </div>
+                                                                                    <div class="ctrlpic" ng-if="histo.data.payLoad.ticket.userInfo.ctrl.length > 0">
+                                                                                      <img ng-src="./ctrl/{{histo.data.payLoad.ticket.userInfo.ctrl}}?dummy={{tick}}" height="50px">
+                                                                                    </div>
+                                                                                    <div class="userNameHisto">
+                                                                                      {{histo.data.payLoad.ticket.userInfo.name}} {{histo.data.payLoad.ticket.userInfo.firstName}}
+                                                                                    </div>
+                                                                                  </div>
+                                                                                </div>
+                                                                              </div>
+                                                                            </div>
+                                                                            <div class="freeTurnstile" ng-switch-when="freeTurnstile" ng-switch-when-separator="|">
+                                                                              <div class="row">
+                                                                                <div class="col-xs-12">
+                                                                                  <div class="row">
+                                                                                    <div class="col-xs-4 text-right freeTurnstileIcon">
+                                                                                      <i class="fas fa-arrow-circle-up"></i>
+                                                                                    </div>
+                                                                                    <div class="col-xs-8 text-left freeTurnstileText">
+                                                                                        <span>Passage Libéré</span>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                </div>
+                                                                              </div>
+                                                                            </div>
+                                                                            <div class="abortTurnstile" ng-switch-when="abortTurnstile" ng-switch-when-separator="|">
+                                                                              <div class="row">
+                                                                                <div class="col-xs-12">
+                                                                                  <div class="row">
+                                                                                    <div class="col-xs-4 text-right abortTurnstileIcon">
+                                                                                      <i class="fas fa-exclamation-triangle"></i>
+                                                                                    </div>
+                                                                                    <div class="col-xs-8 text-left abortTurnstileText">
+                                                                                        <span>Passage Abandonné</span>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                </div>
+                                                                              </div>
+                                                                            </div>
+                                                                            <div class="dataInfo" ng-switch-when="nbTagPassageByDay" ng-switch-when-separator="|">
+                                                                              <div class="row">
+                                                                                <div class="col-xs-12">
+                                                                                  <div class="nbPassageByDay">
+                                                                                    Nombre de passages : <b>{{histo.data.payLoad.count}}</b>
+                                                                                  </div>
+                                                                                </div>
+                                                                              </div>
+                                                                            </div>
+                                                                            <div class="dataInfo" ng-switch-when="noData" ng-switch-when-separator="|">
+                                                                              <div class="row">
+                                                                                <div class="col-xs-12">
+                                                                                  <div class="noData">
+                                                                                    Fin des données
+                                                                                  </div>
+                                                                                </div>
+                                                                              </div>
+                                                                            </div>
+                                                                            <div class="dataInfo" ng-switch-default>
+                                                                              <div class="row">
+                                                                                <div class="col-xs-12">
+                                                                                  <div class="jsonCode">
+                                                                                    {{histo.data}}
+                                                                                  </div>
+                                                                                </div>
+                                                                              </div>
+                                                                            </div>
+                                                                          </div>
+                                                                        </div>
+                                                                      </div>
+                                                                    </td>
+                                                                  </tr>
+                                                                </tbody>
+                                                              </table>
+                                                            </div>
+                                                          </div>
+                                                          <div class="col-xs-12 col-sm-12 col-xl-12 text-center nopadding" ng-show="histos.length == 0">
+                                                            Chargement en cours...
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                      <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" ng-click="getNbTagPassageByDay(data.data.payLoad.ticket.uidDAG,0);getInfoNbTagPassageByDay=true"><i class="fas fa-chart-line"></i></button>
+                                                        <button type="button" class="btn btn-secondary" ng-click="getInfoNbPassageByDay?getNbTagPassageByDay(data.data.payLoad.ticket.uidDAG,-1):getTagHistory(data.data.payLoad.ticket.uidDAG,-1)"><i class="fas fa-arrow-left"></i></button>
+                                                        <button type="button" class="btn btn-secondary" ng-disabled="histos[0].data.msgType=='event'?(histos[0].data.payLoad.type=='noData'?true:false):false" ng-click="getInfoNbTagPassageByDay?getNbTagPassageByDay(data.data.payLoad.ticket.uidDAG,+1):getTagHistory(data.data.payLoad.ticket.uidDAG,+1)"><i class="fas fa-arrow-right"></i></button>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+
+                                              </div>
+                                              <div ng-switch="data.data.payLoad.ticket.itemType">
+                                                <div ng-switch-when="0"> <!-- Season product -->
+                                                  <div ng-if="data.data.msgType=='event' && data.data.payLoad.ticket != null" class="productName">
+                                                    <i class="fas fa-snowflake"></i> <span>{{data.data.payLoad.ticket.itemDesignation}}</span>
+                                                  </div>
+                                                  <div class="itemDate" ng-if="data.data.msgType=='event' && data.data.payLoad.ticket != null">
+                                                    Date validité: {{dateFormat(data.data.payLoad.ticket.itemStartDate)}} <i class="glyphicon glyphicon-arrow-right"></i> {{dateFormat(data.data.payLoad.ticket.itemEndDate)}}
+                                                  </div>
+                                                </div>
+                                                <div ng-switch-when="1"> <!-- Days product -->
+                                                  <div ng-if="data.data.msgType=='event' && data.data.payLoad.ticket != null">
+                                                    <i class="fas fa-calendar-check" style="font-size:16px"></i> <span class="productName">{{data.data.payLoad.ticket.itemDesignation}}</span>
+                                                  </div>
+                                                  <div class="itemDate" ng-if="data.data.msgType=='event' && data.data.payLoad.ticket != null && data.payLoad.ticket.UseFromDay == true">
+                                                    Use From Date: {{dateFormat(data.data.payLoad.ticket.UseFromDate)}}
+                                                  </div>
+                                                  <div class="itemDate" ng-if="data.data.msgType=='event' && data.data.payLoad.ticket != null">
+                                                    RFID Date: {{dateFormat(data.data.payLoad.ticket.dDate_Debut_Validite_RFID)}} <i class="glyphicon glyphicon-arrow-right"></i> {{dateFormat(data.data.payLoad.ticket.dDate_Fin_Validite_RFID)}}
+                                                  </div>
+                                                </div>
+                                                <div ng-switch-when="2"> <!-- Time product -->
+                                                  <div ng-if="data.data.msgType=='event' && data.data.payLoad.ticket != null">
+                                                    <i class="fas fa-hourglass-start" style="font-size:14px"></i> <span class="productName">{{data.data.payLoad.ticket.itemDesignation}}</span>
+                                                  </div>
+                                                  <div class="itemDate" ng-if="data.data.msgType=='event' && data.data.payLoad.ticket != null && data.payLoad.ticket.UseFromDay == true">
+                                                    Use From Date: {{momentFormat(data.data.payLoad.ticket.UseFromDate)}}
+                                                  </div>
+                                                  <div class="itemDate" ng-if="data.data.msgType=='event' && data.data.payLoad.ticket != null">
+                                                    RFID Date: {{momentFormat(data.data.payLoad.ticket.dDate_Debut_Validite_RFID)}} <i class="glyphicon glyphicon-arrow-right"></i> {{momentFormat(data.data.payLoad.ticket.dDate_Fin_Validite_RFID)}}
+                                                  </div>
+                                                </div>
+                                                <div ng-switch-when="3"> <!-- Points product -->
+                                                  <div ng-if="data.data.msgType=='event' && data.data.payLoad.ticket != null">
+                                                    <i class="fi-die-five" style="font-size:18px"></i> <span class="productName">{{data.data.payLoad.ticket.itemDesignation}}</span>
+                                                  </div>
+                                                  <div class="itemDate" ng-if="data.data.msgType=='event' && data.data.payLoad.ticket != null">
+                                                    qtyAfterRFID: {{data.data.payLoad.ticket.qtyAfterRFID}}
+                                                  </div>
+                                                </div>
+                                                <div ng-switch-when="5"> <!-- Season product -->
+                                                  <div ng-if="data.data.msgType=='event' && data.data.payLoad.ticket != null" class="productName">
+                                                    <i class="fas fa-snowflake"></i> <span>{{data.data.payLoad.ticket.itemDesignation}}</span>
+                                                  </div>
+                                                  <div class="itemDate" ng-if="data.data.msgType=='event' && data.data.payLoad.ticket != null">
+                                                    Date validité: {{dateFormat(data.data.payLoad.ticket.dDate_Debut_Validite_RFID)}} <i class="glyphicon glyphicon-arrow-right"></i> {{dateFormat(data.data.payLoad.ticket.dDate_Fin_Validite_RFID)}}
+                                                  </div>
+                                                </div>
+                                                <div class="error" ng-if="data.data.msgType=='event' && data.data.payLoad.ticket != null && data.data.payLoad.ticket.errorDescription[0].indexOf('No error') == -1">
+                                                  <i class="glyphicon glyphicon-alert"></i> {{data.data.payLoad.ticket.errorDescription | join:' / '}}
+                                                </div>
+                                              </div>
+                                              <div class="" ng-if="data.data.payLoad.ticket.userInfo != null">
+                                                <div ng-if="data.data.payLoad.ticket.userInfo.img.length > 0">
+                                                  <img class="photoHeight" ng-src="./photo/{{data.data.payLoad.ticket.userInfo.img}}?dummy={{tick}}">
+                                                  <span class="userName"> {{data.data.payLoad.ticket.userInfo.name}} {{data.data.payLoad.ticket.userInfo.firstName}}</span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-xs-5 text-center nopadding">
+                                              <div class="" ng-if="data.data.payLoad.ticket.userInfo != null">
+                                                <!-- <div ng-if="data.data.payLoad.ticket.userInfo.img.length > 0">
+                                                  <img class="photoHeight" ng-src="./photo/{{data.data.payLoad.ticket.userInfo.img}}?dummy={{tick}}">
+                                                </div> -->
+                                                <div class="ctrlpic" ng-if="data.data.payLoad.ticket.userInfo.ctrl.length > 0">
+                                                  <img class="photoCtrlHeight" data-toggle="modal" data-target="#ctrlPhotoModal{{$index}}" ng-src="./ctrl/{{data.data.payLoad.ticket.userInfo.ctrl}}?dummy={{tick}}" ng-click="getTagCtrl(data)">
+                                                </div>
+                                                <!-- <div class="userName screenLarge">
+                                                  {{data.data.payLoad.ticket.userInfo.name}} {{data.data.payLoad.ticket.userInfo.firstName}}
+                                                </div>
+                                                <div class="userName screenSmall">
+                                                  {{data.data.payLoad.ticket.userInfo.name}}
+                                                  </br>
+                                                  {{data.data.payLoad.ticket.userInfo.firstName}}
+                                                </div> -->
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                          <!-- Modal Ctrl Photo -->
+                            							<div class="modal fade" id="ctrlPhotoModal{{$index}}" title="" tabindex="-1" role="dialog" aria-labelledby="ctrlPhotoModalLabel{{$index}}" aria-hidden="true">
+                            							  <div class="modal-dialog" role="document">
+                            							    <div class="modal-content">
+                            							      <div class="modal-header">
+                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            							          <span aria-hidden="true">&times;</span>
+                            							        </button>
+                            							        <h3 class="modal-title" id="ctrlPhotoModalLabel{{$index}}"><i class="fas fa-file-image"></i> Photo Control - {{data.data.payLoad.ticket.uidDAG}}</h3>
+                                                  <h4>
+                                                    <div class="row text-center">
+                                                      <div class="col-xs-6 text-center">
+                                                        <i class="fas fa-snowflake"></i> {{data.data.payLoad.ticket.itemDesignation}}
+                                                      </div>
+                                                      <div class="col-xs-6 text-center">
+                                                        <i class="fas fa-user-tag" ng-show="data.data.payLoad.ticket.userInfo.name!=null"></i>{{data.data.payLoad.ticket.userInfo.name!=null?data.data.payLoad.ticket.userInfo.name + ' ' + data.data.payLoad.ticket.userInfo.firstName:''}}
+                                                      </div>
+                            							          </div>
+                                                  </h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                  <div class="row text-center">
+                                                    <div class="col-xs-6 text-center">
+                                                      First one
+                                                      <img class="img-responsive img-center" ng-src="{{album[data.data.payLoad.ticket.serialNumber].first}}">
+                                                    </div>
+                                                    <div class="col-xs-6 text-center">
+                                                      <i class="fas fa-snowflake"></i> {{currentPictureProduct}} - <i class="far fa-clock"></i> {{currentPictureDate}}
+                                                      <img class="img-responsive img-center" ng-src="{{album[data.data.payLoad.ticket.serialNumber].current}}" height="300px">
+                                                    </div>
+                                                  </div>
+                                                  <hr>
+                                                  <ul class="row scroll">
+                                                    <li class="col-lg-3 col-md-3 col-sm-3 col-xs-4 text-center album" ng-class="gethighlight(data.data.payLoad.ticket.serialNumber,$index)" ng-repeat="picture in album[data.data.payLoad.ticket.serialNumber].album | reverse" ng-click="selectPict(data.data.payLoad.ticket.serialNumber,$index,picture)">
+                                                      <img class="img-responsive img-center" ng-src="{{picture.url}}">
+                                                      <div class="text-center">
+                                                        <i class="fas fa-snowflake"></i> {{picture.product}}</br>
+                                                        <i class="fas fa-map-marker-alt"></i> {{picture.checkpoint}}</br>
+                                                        <i class="far fa-clock"></i> {{momentFormat(picture.date)}}
+                                							        </div>
+                                                    </li>
+                                                  </ul>
+                            							      </div>
+                            							      <div class="modal-footer">
+                            							        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                            							      </div>
+                            							    </div>
+                            							  </div>
+                                          </div>
+                                        </div>
+                                        <div class="freeTurnstile" ng-switch-when="freeTurnstile" ng-switch-when-separator="|">
+                                          <div class="row">
+                                            <div class="col-xs-12">
+                                              <div class="row">
+                                                <div class="col-xs-4 text-right freeTurnstileIcon">
+                                                  <i class="fas fa-arrow-circle-up"></i>
+                                                </div>
+                                                <div class="col-xs-8 text-left freeTurnstileText">
+                                                    <span>Passage Libéré</span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="abortTurnstile" ng-switch-when="abortTurnstile" ng-switch-when-separator="|">
+                                          <div class="row">
+                                            <div class="col-xs-12">
+                                              <div class="row">
+                                                <div class="col-xs-4 text-right abortTurnstileIcon">
+                                                  <i class="fas fa-exclamation-triangle"></i>
+                                                </div>
+                                                <div class="col-xs-8 text-left abortTurnstileText">
+                                                    <span>Passage Abandonné</span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="freeTurnstile" ng-switch-when="idle" ng-switch-when-separator="|">
+                                          <div class="row">
+                                            <div class="col-xs-12">
+                                              <div class="row">
+                                                <div class="col-xs-4 text-right freeTurnstileIcon">
+                                                  <i class="fas fa-arrow-circle-up"></i>
+                                                </div>
+                                                <div class="col-xs-8 text-left freeTurnstileText">
+                                                    <span>Passage OK</span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="dataInfo" ng-switch-default>
+                                          <div class="row">
+                                            <div class="col-xs-12">
+                                              <div class="jsonCode">
+                                                {{data.data}}
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="dataInfo" ng-switch-when="data">
+                                      {{data.data}}
+                                    </div>
+                                    <div class="logInfoData" ng-switch-when="log">
+                                      <div ng-class="data.data.payLoad.text.indexOf('Exception')>0?'nackMsg':''">
+                                        <div ng-switch="data.data.payLoad.origin">
+                                          <div ng-switch-when="accessControlManager">
+                                            <div class="row">
+                                              <div class="col-xs-1 text-center" ng-class="data.data.payLoad.type=='debug'?'logDebug':data.data.payLoad.type=='info'?'logInfo':data.data.payLoad.type=='error'?'logError':data.data.payLoad.type=='warn'?'logWarn':data.data.payLoad.type=='fatal'?'logFatal':''">
+                                                {{data.data.payLoad.type}}
+                                              </div>
+                                              <div class="col-xs-2 text-center">
+                                                {{data.data.payLoad.origin}}
+                                              </div>
+                                              <div class="col-xs-9">
+                                                {{data.data.payLoad.text}}
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div ng-switch-when="detectionPointManager">
+                                            <div class="row">
+                                              <div class="col-xs-1 text-center" ng-class="data.data.payLoad.type=='debug'?'logDebug':data.data.payLoad.type=='info'?'logInfo':data.data.payLoad.type=='error'?'logError':data.data.payLoad.type=='warn'?'logWarn':data.data.payLoad.type=='fatal'?'logFatal':''">
+                                                {{data.data.payLoad.type}}
+                                              </div>
+                                              <div class="col-xs-2 text-center">
+                                                {{data.data.payLoad.origin}}
+                                              </div>
+                                              <div class="col-xs-9">
+                                                {{data.data.payLoad.text}}
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div ng-switch-when="highway">
+                                            <div class="row">
+                                              <div class="col-xs-1 text-center" ng-class="data.data.payLoad.type=='debug'?'logDebug':data.data.payLoad.type=='info'?'logInfo':data.data.payLoad.type=='error'?'logError':data.data.payLoad.type=='warn'?'logWarn':data.data.payLoad.type=='fatal'?'logFatal':''">
+                                                {{data.data.payLoad.type}}
+                                              </div>
+                                              <div class="col-xs-2 text-center">
+                                                {{data.data.payLoad.origin}}
+                                              </div>
+                                              <div class="col-xs-9">
+                                                {{data.data.payLoad.text}}
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div ng-switch-when="rfidManager">
+                                            <div class="row">
+                                              <div class="col-xs-1 text-center" ng-class="data.data.payLoad.type=='debug'?'logDebug':data.data.payLoad.type=='info'?'logInfo':data.data.payLoad.type=='error'?'logError':data.data.payLoad.type=='warn'?'logWarn':data.data.payLoad.type=='fatal'?'logFatal':''">
+                                                {{data.data.payLoad.type}}
+                                              </div>
+                                              <div class="col-xs-2 text-center">
+                                                {{data.data.payLoad.origin}}
+                                              </div>
+                                              <div class="col-xs-9">
+                                                {{data.data.payLoad.text}}
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div ng-switch-when="sucReader">
+                                            <div class="row">
+                                              <div class="col-xs-1 text-center" ng-class="data.data.payLoad.type=='debug'?'logDebug':data.data.payLoad.type=='info'?'logInfo':data.data.payLoad.type=='error'?'logError':data.data.payLoad.type=='warn'?'logWarn':data.data.payLoad.type=='fatal'?'logFatal':''">
+                                                {{data.data.payLoad.type}}
+                                              </div>
+                                              <div class="col-xs-2 text-center">
+                                                {{data.data.payLoad.origin}}
+                                              </div>
+                                              <div class="col-xs-9">
+                                                {{data.data.payLoad.text}}
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div ng-switch-when="rodinbellReader">
+                                            <div class="row">
+                                              <div class="col-xs-1 text-center" ng-class="data.data.payLoad.type=='debug'?'logDebug':data.data.payLoad.type=='info'?'logInfo':data.data.payLoad.type=='error'?'logError':data.data.payLoad.type=='warn'?'logWarn':data.data.payLoad.type=='fatal'?'logFatal':''">
+                                                {{data.data.payLoad.type}}
+                                              </div>
+                                              <div class="col-xs-2 text-center">
+                                                {{data.data.payLoad.origin}}
+                                              </div>
+                                              <div class="col-xs-9">
+                                                {{data.data.payLoad.text}}
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div ng-switch-when="dataManager">
+                                            <div class="row">
+                                              <div class="col-xs-1 text-center" ng-class="data.data.payLoad.type=='debug'?'logDebug':data.data.payLoad.type=='info'?'logInfo':data.data.payLoad.type=='error'?'logError':data.data.payLoad.type=='warn'?'logWarn':data.data.payLoad.type=='fatal'?'logFatal':''">
+                                                {{data.data.payLoad.type}}
+                                              </div>
+                                              <div class="col-xs-2 text-center">
+                                                {{data.data.payLoad.origin}}
+                                              </div>
+                                              <div class="col-xs-9">
+                                                {{data.data.payLoad.text}}
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div ng-switch-when="dagAccessManager">
+                                            <div class="row">
+                                              <div class="col-xs-1 text-center" ng-class="data.data.payLoad.type=='debug'?'logDebug':data.data.payLoad.type=='info'?'logInfo':data.data.payLoad.type=='error'?'logError':data.data.payLoad.type=='warn'?'logWarn':data.data.payLoad.type=='fatal'?'logFatal':''">
+                                                {{data.data.payLoad.type}}
+                                              </div>
+                                              <div class="col-xs-2 text-center">
+                                                {{data.data.payLoad.origin}}
+                                              </div>
+                                              <div class="col-xs-9">
+                                                {{data.data.payLoad.text}}
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div ng-switch-when="dagLive">
+                                            <div class="row">
+                                              <div class="col-xs-1 text-center" ng-class="data.data.payLoad.type=='debug'?'logDebug':data.data.payLoad.type=='info'?'logInfo':data.data.payLoad.type=='error'?'logError':data.data.payLoad.type=='warn'?'logWarn':data.data.payLoad.type=='fatal'?'logFatal':''">
+                                                {{data.data.payLoad.type}}
+                                              </div>
+                                              <div class="col-xs-2 text-center">
+                                                {{data.data.payLoad.origin}}
+                                              </div>
+                                              <div class="col-xs-9">
+                                                {{data.data.payLoad.text}}
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div ng-switch-when="openPass">
+                                            <div class="row">
+                                              <div class="col-xs-1 text-center" ng-class="data.data.payLoad.type=='debug'?'logDebug':data.data.payLoad.type=='info'?'logInfo':data.data.payLoad.type=='error'?'logError':data.data.payLoad.type=='warn'?'logWarn':data.data.payLoad.type=='fatal'?'logFatal':''">
+                                                {{data.data.payLoad.type}}
+                                              </div>
+                                              <div class="col-xs-2 text-center">
+                                                {{data.data.payLoad.origin}}
+                                              </div>
+                                              <div class="col-xs-9">
+                                                {{data.data.payLoad.text}}
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div ng-switch-when="socketManager">
+                                            <div class="row">
+                                              <div class="col-xs-1 text-center" ng-class="data.data.payLoad.type=='debug'?'logDebug':data.data.payLoad.type=='info'?'logInfo':data.data.payLoad.type=='error'?'logError':data.data.payLoad.type=='warn'?'logWarn':data.data.payLoad.type=='fatal'?'logFatal':''">
+                                                {{data.data.payLoad.type}}
+                                              </div>
+                                              <div class="col-xs-2 text-center">
+                                                {{data.data.payLoad.origin}}
+                                              </div>
+                                              <div class="col-xs-9">
+                                                {{data.data.payLoad.text}}
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div ng-switch-when="socketServer">
+                                            <div class="row">
+                                              <div class="col-xs-1 text-center" ng-class="data.data.payLoad.type=='debug'?'logDebug':data.data.payLoad.type=='info'?'logInfo':data.data.payLoad.type=='error'?'logError':data.data.payLoad.type=='warn'?'logWarn':data.data.payLoad.type=='fatal'?'logFatal':''">
+                                                {{data.data.payLoad.type}}
+                                              </div>
+                                              <div class="col-xs-2 text-center">
+                                                {{data.data.payLoad.origin}}
+                                              </div>
+                                              <div class="col-xs-9">
+                                                {{data.data.payLoad.text}}
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div ng-switch-default>
+                                            <div class="row">
+                                              <div class="col-xs-1 text-center" ng-class="data.data.payLoad.type=='debug'?'logDebug':data.data.payLoad.type=='info'?'logInfo':data.data.payLoad.type=='error'?'logError':data.data.payLoad.type=='warn'?'logWarn':data.data.payLoad.type=='fatal'?'logFatal':''">
+                                                {{data.data.payLoad.type}}
+                                              </div>
+                                              <div class="col-xs-2 text-center">
+                                                {{data.data.payLoad.origin}}
+                                              </div>
+                                              <div class="col-xs-9">
+                                                {{data.data.payLoad.text}}
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="monitoringRFIDInfo" ng-switch-when="monitoringRFID">
+                                      {{data.data}}
+                                    </div>
+                                    <div class="otherInfo" ng-switch-default>
+                                      {{data.data}}
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="settings" class="tab-pane fade">
+                    <div class="row">
+                      <div class="col-md-6 col-xs-12">
+                        <div class="row">
+                          CPU Temp = <b>{{cpuTemperature}}°C</b>
+                        </div>
+                        <div class="row">
+                          Timeout Fin OK = <b>{{timeoutFinOK}}s</b>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-xs-12" ng-show="cameraReady">
+                        <button class="btn antennaTune" ng-class="takePictureClass" ng-click="takePicture()">Take Picture</button>
+                        <img style="max-height:300px" ng-src="./ctrl/{{pictureTest}}?dummy={{tick}}">
+                      </div>
+                    </div>
+                    <hr>
+                    <div class ="row" ng-repeat="reader in readerList">
+                      <div class="row">
+                        <div class="col-md-6 col-xs-12">
+                          <div class="row">
+                            <div class="label label-warning">Reader #{{$index + 1 }}</div>
+                            Type Reader = <b>{{reader.typeReader}}{{(reader.typeReader=='SUC' && idLRDReader >= 21)?' + LRD':''}}</b>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row" ng-show="reader.typeReader=='ANDEA' || (reader.typeReader=='SUC' && idLRDReader >= 21) || reader.typeReader=='LRD'">
+                        <div class="col-md-4 col-xs-12">
+                          <div class="row">
+                            <button class="btn antennaTune" ng-class="antennaTuneClass" ng-click="antennaTune()">Réglage Antenne</button>
+                            <button class="btn antennaTune" ng-click="getInfoRFID()"><i class="fas fa-sync-alt"></i></button>
+                          </div>
+                          <div class="row">
+                            C1 = <b>{{c1Value}}</b>
+                            C2 = <b>{{c2Value}}</b>
+                            C3 = <b>{{c3Value}}</b>
+                            C4 = <b>{{dgValue}}</b>
+                          </div>
+                          <div class="row">
+                            I1 = <b>{{i1Value}}</b>
+                            I2 = <b>{{i2Value}}</b>
+                            I3 = <b>{{i3Value}}</b>
+                            I4 = <b>{{i4Value}}</b>
+                          </div>
+                          <div class="row">
+                            Temp = <b>{{tpValue}}°C</b>
+                          </div>
+                        </div>
+                        <div class="col-md-8 col-xs-12">
+                          <div class="slidecontainer">
+                            <p style="margin-top:2px">Réglage fin: {{dgValue}}</p>
+                            <input type="range" min="0" max="15" value="0" class="slider" ng-model="dgValue" ng-click="setDGValue()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 col-xs-12" ng-show="reader.typeReader=='RODINBELL_D100' || reader.typeReader=='RODINBELL_X2' || reader.typeReader=='RODINBELL_X4' || reader.typeReader=='IMPINJ_R420' || reader.typeReader=='ANDEA' || (reader.typeReader=='SUC' && idLRDReader >= 21) || reader.typeReader=='LRD'">
+                          <div class="col-xs-6">
+                            <p style="margin-top:2px"><i class="fas fa-2x fa-broadcast-tower"></i> Power: {{reader.powerValue}}</p>
+                          </div>
+                          <div class="col-xs-6">
+                            <div class="checkbox">
+                              <label class="checkbox-inline"><input type="checkbox" ng-model="reader.storePower">Save</label>
+                            </div>
+                          </div>
+                          <div class="slidecontainer">
+                            <input type="range" min="10" max="{{reader.maxPower}}" value="0" class="slider" ng-model="reader.powerValue" ng-click="setPowerValue(reader)">
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-xs-12" ng-show="reader.typeReader=='RODINBELL_D100' || reader.typeReader=='RODINBELL_X2' || reader.typeReader=='RODINBELL_X4' || reader.typeReader=='IMPINJ_R420'">
+                          <div class="col-xs-6">
+                            <p style="margin-top:2px"><i class="fas fa-2x fa-greater-than-equal"></i> Threshold: {{thresholdValue}}
+                            </p>
+                          </div>
+                          <div class="col-xs-6">
+                            <div class="checkbox">
+                              <label class="checkbox-inline"><input type="checkbox" ng-model="storeThreshold">Save</label>
+                            </div>
+                          </div>
+                          <div class="slidecontainer">
+                            <input type="range" min="0" max="100" value="0" class="slider" ng-model="thresholdValue" >
+                          </div>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="slidecontainer">
+                          <p style="margin-top:2px"><i class="fas fa-2x fa-volume-down"></i> Volume: {{volumeValue}}</p>
+                          <input type="range" min="0" max="100" value="0" class="slider" ng-model="volumeValue">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="advancedSettings" class="tab-pane fade">
+                    <div class="row">
+                      <div class="col-xs-12 text-center">
+                        <button class="btn" ng-click="clearTerminal()">Clear RX</button>
+                      </div>
+                      <div class="col-xs-12">
+                        <div class="terminal">
+                          <div id="history" ng-bind-html="historyTerminal">
+                          </div>
+                          <div class="line">
+                            <input type="text" id="input" ng-model="inputTerminal" ng-keydown="terminalKeyDown($event)">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row txCommand">
+                      <div class="col-xs-12">
+                        <form class="form-inline">
+                          <div class="col-md-2">
+                            <label for="stackSize">stack Size</label>
+                            <input type="text" class="form-control input-xs" ng-model="stackSize" id="stackSize">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="dataTx">Data to TX:</label>
+                            <input type="text" class="form-control input-xs" ng-model="dataTx" id="dataTx">
+                          </div>
+                          <div class="col-md-4" style="margin-top:17px;">
+                            <div class="checkbox">
+                							<label><input type="checkbox" ng-model="broadcast"> broadcast</label>
+              							</div>
+                            <button class="btn" ng-click="sendData(dataTx,broadcast)">TX test</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row txCommandRepeat">
+                      <div class="col-xs-12 text-center">
+                        <form class="form-inline">
+                          <div class="col-md-2">
+                            <label for="interval">Interval(ms):</label>
+                            <input type="text" class="form-control input-xs" ng-model="interval" id="interval">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="dataTx">Data to TX:</label>
+                            <input type="text" class="form-control input-xs" ng-model="dataTxRepeat" id="dataTx">
+                          </div>
+                          <div class="col-md-4" style="margin-top:17px;">
+                            <div class="checkbox">
+                              <label><input type="checkbox" ng-model="broadcastRepeat"> broadcast</label>
+            							   </div>
+                             <button class="btn" ng-click="sendDataRepeat(dataTxRepeat,broadcastRepeat)">TX interval</button>
+                             <button class="btn" ng-click="stopInterval()" ng-disabled="txRepeatId.length == 0">Stop TX<span style="font-size:8px"> {{txRepeatId.length > 0 ? '(' + txRepeatId.length + ')':''}}</span></button>
+                           </div>
+                        </form>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row optionLog">
+                      <div class="col-xs-6 col-md-1">
+                        <div class="checkbox">
+                          <label class="checkbox-inline"><input type="checkbox" ng-model="showLog">LOG</label>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 col-md-1">
+                        <div class="checkbox">
+                          <label class="checkbox-inline"><input type="checkbox" ng-model="showLogHWY">LOG HIGHWAY</label>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 col-md-1">
+                        <div class="checkbox">
+                          <label class="checkbox-inline"><input type="checkbox" ng-model="showLogEvent">LOG EVENT</label>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 col-md-1">
+                        <div class="checkbox">
+                          <label class="checkbox-inline"><input type="checkbox" ng-model="showLogRFID">LOG RFID</label>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 col-md-1">
+                        <div class="checkbox">
+                          <label class="checkbox-inline"><input type="checkbox" ng-model="showLogPath">LOG PATH</label>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 col-md-1">
+                        <div class="checkbox">
+                          <label class="checkbox-inline"><input type="checkbox" ng-model="showLogData">LOG Data</label>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 col-md-1">
+                        <div class="checkbox">
+                          <label class="checkbox-inline"><input type="checkbox" ng-model="showLogConnect">LOG Connect TCP</label>
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row optionLog">
+                      <div class="col-xs-6 col-md-1">
+                        <div class="checkbox">
+                          <label class="checkbox-inline"><input type="checkbox" ng-click="configLOG()" ng-model="activeLog.logSocketTX">LOG TX TCP Socket</label>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 col-md-1">
+                        <div class="checkbox">
+                          <label class="checkbox-inline"><input type="checkbox" ng-click="configLOG()" ng-model="activeLog.logSocketRX">LOG RX TCP Socket</label>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 col-md-1">
+                        <div class="checkbox">
+                          <label class="checkbox-inline"><input type="checkbox" ng-click="configLOG()" ng-model="activeLog.logTCPRX">LOG RX TCP</label>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 col-md-1">
+                        <div class="checkbox">
+                          <label class="checkbox-inline"><input type="checkbox" ng-click="configLOG()" ng-model="activeLog.logWebTX">LOG TX WEBSOCKET</label>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 col-md-1">
+                        <div class="checkbox">
+                          <label class="checkbox-inline"><input type="checkbox" ng-click="configLOG()" ng-model="activeLog.logWebRX">LOG RX WEBSOCKET</label>
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-xs-12 text-center">
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#restartModal"><span class="glyphicon glyphicon-flash"></span> Reboot</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <!-- Modal Restart device -->
+  							<div class="modal fade" id="restartModal" tabindex="-1" role="dialog" aria-labelledby="restartModalLabel" aria-hidden="true">
+  							  <div class="modal-dialog" role="document">
+  							    <div class="modal-content">
+  							      <div class="modal-header">
+  							        <h3 class="modal-title" id="restartModalLabel">Reboot DAG Access<span class="small"></span></h3>
+  							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  							          <span aria-hidden="true">&times;</span>
+  							        </button>
+  							      </div>
+  							      <div class="modal-body">
+  							        Êtes-vous sûr de vouloir redemarrer ce DAG Access?
+  							      </div>
+  							      <div class="modal-footer">
+  							        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+  							        <button type="button" class="btn btn-danger" ng-click="reboot()" data-dismiss="modal"><span class="glyphicon glyphicon-flash"></span> Reboot</button>
+  							      </div>
+  							    </div>
+  							  </div>
+  							</div>
+
+
+                <!-- Modal Histo Checkpoint -->
+                <div class="modal fade" id="histoCheckpointModal" tabindex="-1" role="dialog" aria-labelledby="histoCheckpointLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h3 class="modal-title" id="histoCheckpointLabel">Historique : {{pointName}}</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col-xs-12 col-sm-12 col-xl-12 text-center nopadding" ng-show="histos.length > 0">
+                            <div class="table-responsive" style="max-height:500px">
+                              <table class="table table-striped table-bordered text-center">
+                                <thead>
+                                  <tr>
+                                    <th  class="text-center">Date</th>
+                                    <th  class="text-center">Informations</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr ng-repeat="histo in histos">
+                                    <td class="timestamp" ng-class="histo.data.msgType=='hello'?'helloMsg':(histo.data.msgType=='ack'?'ackMsg':(histo.data.msgType=='nack'?'nackMsg':(histo.data.msgType=='event'?(histo.data.payLoad.type=='ok' || histo.data.payLoad.type=='alreadyOk'?'eventOkMsg':(histo.data.payLoad.type=='ko'||histo.data.payLoad.type=='alreadyKo'?'eventKoMsg':'eventMsg')):(histo.data.msgType=='goodbye'?'goodbyeMsg':(histo.data.msgType=='data'?'dataMsg':(histo.data.msgType=='monitoringRFID'?'monitoringRFIDMsg':(histo.data.msgType=='monitoringHWY'?'monitoringHWY':'')))))))">
+                                      <div>
+                                        {{histo.fulldate}}
+                                      </div>
+                                      <div class="smallTrafficLight" ng-if="histo.data.msgType=='event' && (histo.data.payLoad.ticket != null || histo.data.payLoad.type == 'freeTurnstile' || histo.data.payLoad.type == 'abortTurnstile')" style="margin-left:10px">
+                                        <span class="smallRedLightOff" ng-if="histo.data.payLoad.ticket.visual.red==0 || histo.data.payLoad.visual.red==0" style="margin-right:10px"></span>
+                                        <span class="smallRedLightOn" ng-if="histo.data.payLoad.ticket.visual.red>=1 || histo.data.payLoad.visual.red>=1" style="margin-right:10px"></span>
+                                        <span class="smallOrangeLightOff" ng-if="histo.data.payLoad.ticket.visual.orange==0 || histo.data.payLoad.visual.orange==0" style="margin-right:10px"></span>
+                                        <span class="smallOrangeLightOn" ng-if="histo.data.payLoad.ticket.visual.orange>=1 || histo.data.payLoad.visual.orange>=1" style="margin-right:10px"></span>
+                                        <span class="smallGreenLightOff" ng-if="histo.data.payLoad.ticket.visual.green==0 || histo.data.payLoad.visual.green==0"></span>
+                                        <span class="smallGreenLightOn" ng-if="histo.data.payLoad.ticket.visual.green>=1 || histo.data.payLoad.visual.green>=1"></span>
+                                      </div>
+                                    </td>
+                                    <td class="text-left tooltipInfo" data-toggle="tooltip" data-placement="left" title="copy : {{histo.data | json:0 | limitTo:100}}...." ng-click="copy(histo)" ng-class="histo.data.msgType=='hello'?'helloMsg':(histo.data.msgType=='ack'?'ackMsg':(histo.data.msgType=='nack'?'nackMsg':(histo.data.msgType=='event'?(histo.data.payLoad.type=='ok'?'eventOkMsg':(histo.data.payLoad.type=='ko'||histo.data.payLoad.type=='alreadyKo'?'eventKoMsg':'eventMsg')):(histo.data.msgType=='goodbye'?'goodbyeMsg':(histo.data.msgType=='data'?'dataMsg':(histo.data.msgType=='monitoringRFID'?'monitoringRFIDMsg':(histo.data.msgType=='monitoringHWY'?'monitoringHWY':'')))))))">
+                                      <div ng-switch="histo.data.msgType">
+                                        <div class="productInfo" ng-switch-when="event">
+                                          <div ng-switch="histo.data.payLoad.type">
+                                            <div class="dataInfo" ng-switch-when="ok|alreadyOk|ko|alreadyKo" ng-switch-when-separator="|">
+                                              <div class="row">
+                                                <div class="col-xs-9 nopadding">
+                                                  <div  class="dag">
+                                                    <i class="fas fa-tags"></i> <span class="">{{histo.data.payLoad.ticket.uidDAG}}</span> <i class="fas fa-arrow-right"></i> <i class="glyphicon glyphicon-barcode"></i> <span class="">{{histo.data.payLoad.ticket.serialNumber}}</span>
+                                                    <span class="antenna" ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null">
+                                                      <i class="fas fa-wifi"></i> {{histo.data.payLoad.ticket.antennaID}}
+                                                    </span>
+                                                  </div>
+                                                  <div ng-switch="histo.data.payLoad.ticket.itemType">
+                                                    <div ng-switch-when="0"> <!-- Season product -->
+                                                      <div ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null" class="productNameHisto">
+                                                        <i class="fas fa-snowflake"></i> <span>{{histo.data.payLoad.ticket.itemDesignation}}</span>
+                                                      </div>
+                                                      <div class="itemDateHisto" ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null">
+                                                        Date validité: {{dateFormat(histo.data.payLoad.ticket.itemStartDate)}} <i class="glyphicon glyphicon-arrow-right"></i> {{dateFormat(histo.data.payLoad.ticket.itemEndDate)}}
+                                                      </div>
+                                                    </div>
+                                                    <div ng-switch-when="1"> <!-- Days product -->
+                                                      <div ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null">
+                                                        <i class="fas fa-calendar-check" style="font-size:16px"></i> <span class="productNameHisto">{{histo.data.payLoad.ticket.itemDesignation}}</span>
+                                                      </div>
+                                                      <div class="itemDateHisto" ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null && data.payLoad.ticket.UseFromDay == true">
+                                                        Use From Date: {{dateFormat(histo.data.payLoad.ticket.UseFromDate)}}
+                                                      </div>
+                                                      <div class="itemDateHisto" ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null">
+                                                        RFID Date: {{dateFormat(histo.data.payLoad.ticket.dDate_Debut_Validite_RFID)}} <i class="glyphicon glyphicon-arrow-right"></i> {{dateFormat(histo.data.payLoad.ticket.dDate_Fin_Validite_RFID)}}
+                                                      </div>
+                                                    </div>
+                                                    <div ng-switch-when="2"> <!-- Time product -->
+                                                      <div ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null">
+                                                        <i class="fas fa-hourglass-start" style="font-size:14px"></i> <span class="productNameHisto">{{histo.data.payLoad.ticket.itemDesignation}}</span>
+                                                      </div>
+                                                      <div class="useFromDate" ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null && data.payLoad.ticket.UseFromDay == true">
+                                                        Use From Date: {{momentFormat(histo.data.payLoad.ticket.UseFromDate)}}
+                                                      </div>
+                                                      <div class="itemDateHisto" ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null">
+                                                        RFID Date: {{momentFormat(histo.data.payLoad.ticket.dDate_Debut_Validite_RFID)}} <i class="glyphicon glyphicon-arrow-right"></i> {{momentFormat(histo.data.payLoad.ticket.dDate_Fin_Validite_RFID)}}
+                                                      </div>
+                                                    </div>
+                                                    <div ng-switch-when="3"> <!-- Points product -->
+                                                      <div ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null">
+                                                        <i class="fi-die-five" style="font-size:18px"></i> <span class="productNameHisto">{{histo.data.payLoad.ticket.itemDesignation}}</span>
+                                                      </div>
+                                                      <div class="itemDateHisto" ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null">
+                                                        qtyAfterRFID: {{histo.data.payLoad.ticket.qtyAfterRFID}}
+                                                      </div>
+                                                    </div>
+                                                    <div ng-switch-when="5"> <!-- Season product -->
+                                                      <div ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null" class="productNameHisto">
+                                                        <i class="fas fa-snowflake"></i> <span>{{histo.data.payLoad.ticket.itemDesignation}}</span>
+                                                      </div>
+                                                      <div class="itemDateHisto" ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null">
+                                                        Date validité: {{dateFormat(histo.data.payLoad.ticket.dDate_Debut_Validite_RFID)}} <i class="glyphicon glyphicon-arrow-right"></i> {{dateFormat(histo.data.payLoad.ticket.dDate_Fin_Validite_RFID)}}
+                                                      </div>
+                                                    </div>
+                                                    <div class="error" ng-if="histo.data.msgType=='event' && histo.data.payLoad.ticket != null && histo.data.payLoad.ticket.errorDescription[0].indexOf('No error') == -1">
+                                                      <i class="glyphicon glyphicon-alert"></i> {{histo.data.payLoad.ticket.errorDescription | join:' / '}}
+                                                    </div>
+                                                  </div>
+                                                  <div class="" ng-if="histo.data.payLoad.ticket.userInfo != null">
+                                                    <div ng-if="histo.data.payLoad.ticket.userInfo.img.length > 0">
+                                                      <img ng-src="./photo/{{histo.data.payLoad.ticket.userInfo.img}}?dummy={{tick}}" height="50px">
+                                                      <span class="userNameHisto"> {{histo.data.payLoad.ticket.userInfo.name}} {{histo.data.payLoad.ticket.userInfo.firstName}}</span>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <div class="col-xs-3 text-center nopadding">
+                                                  <div class="" ng-if="histo.data.payLoad.ticket.userInfo != null">
+                                                    <!-- <div ng-if="histo.data.payLoad.ticket.userInfo.img.length > 0">
+                                                      <img ng-src="./photo/{{histo.data.payLoad.ticket.userInfo.img}}?dummy={{tick}}" height="50px">
+                                                    </div> -->
+                                                    <div class="ctrlpic" ng-if="histo.data.payLoad.ticket.userInfo.ctrl.length > 0">
+                                                      <!-- <img ng-src="./ctrl/{{histo.data.payLoad.ticket.userInfo.ctrl}}?dummy={{tick}}" height="50px"> -->
+                                                      <img data-toggle="modal" data-target="#ctrlHistoPhotoModal{{$index}}" ng-src="./ctrl/{{histo.data.payLoad.ticket.userInfo.ctrl}}?dummy={{tick}}" ng-click="getTagCtrl(histo)" height="70px">
+                                                    </div>
+                                                    <!-- <div class="userNameHisto">
+                                                      {{histo.data.payLoad.ticket.userInfo.name}} {{histo.data.payLoad.ticket.userInfo.firstName}}
+                                                    </div> -->
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                              <!-- Modal Histo Ctrl Photo -->
+                                              <div class="modal fade" id="ctrlHistoPhotoModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="ctrlHistoPhotoModalLabel{{$index}}" aria-hidden="true" style="position: fixed;top: 0;right: 0;bottom: 0;left: 0;z-index:2000;display: none;overflow: hidden;-webkit-overflow-scrolling: touch;outline: 0;">
+                                                <div class="modal-dialog" role="document">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                      <h3 class="modal-title" id="ctrlHistoPhotoModalLabel{{$index}}"><i class="fas fa-file-image"></i> Photo Control - {{histo.data.payLoad.ticket.uidDAG}}</h3>
+                                                      <h4>
+                                                        <div class="row text-center">
+                                                          <div class="col-xs-6 text-center">
+                                                            <i class="fas fa-snowflake"></i> {{histo.data.payLoad.ticket.itemDesignation}}
+                                                          </div>
+                                                          <div class="col-xs-6 text-center">
+                                                            <i class="fas fa-user-tag" ng-show="histo.data.payLoad.ticket.userInfo.name!=null"></i>{{histo.data.payLoad.ticket.userInfo.name!=null?histo.data.payLoad.ticket.userInfo.name + ' ' + histo.data.payLoad.ticket.userInfo.firstName:''}}
+                                                          </div>
+                                                        </div>
+                                                      </h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                      <div class="row text-center">
+                                                        <div class="col-xs-6 text-center">
+                                                          First one
+                                                          <img class="img-responsive img-center" ng-src="{{album[histo.data.payLoad.ticket.serialNumber].first}}">
+                                                        </div>
+                                                        <div class="col-xs-6 text-center">
+                                                          <i class="fas fa-snowflake"></i> {{currentPictureProduct}} - <i class="far fa-clock"></i> {{currentPictureDate}}
+                                                          <img class="img-responsive img-center" ng-src="{{album[histo.data.payLoad.ticket.serialNumber].current}}" height="300px">
+                                                        </div>
+                                                      </div>
+                                                      <hr>
+                                                      <ul class="row scroll">
+                                                        <li class="col-lg-3 col-md-3 col-sm-3 col-xs-4 text-center album" ng-class="gethighlight(histo.data.payLoad.ticket.serialNumber,$index)" ng-repeat="picture in album[histo.data.payLoad.ticket.serialNumber].album | reverse" ng-click="selectPict(histo.data.payLoad.ticket.serialNumber,$index,picture)">
+                                                          <img class="img-responsive img-center" ng-src="{{picture.url}}">
+                                                          <div class="text-center">
+                                                            <i class="fas fa-snowflake"></i> {{picture.product}}</br>
+                                                            <i class="fas fa-map-marker-alt"></i> {{picture.checkpoint}}</br>
+                                                            <i class="far fa-clock"></i> {{momentFormat(picture.date)}}
+                                                          </div>
+                                                        </li>
+                                                      </ul>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+
+
+
+                                            </div>
+                                            <div class="freeTurnstile" ng-switch-when="freeTurnstile" ng-switch-when-separator="|">
+                                              <div class="row">
+                                                <div class="col-xs-12">
+                                                  <div class="row">
+                                                    <div class="col-xs-4 text-right freeTurnstileIcon">
+                                                      <i class="fas fa-arrow-circle-up"></i>
+                                                    </div>
+                                                    <div class="col-xs-8 text-left freeTurnstileText">
+                                                        <span>Passage Libéré</span>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="abortTurnstile" ng-switch-when="abortTurnstile" ng-switch-when-separator="|">
+                                              <div class="row">
+                                                <div class="col-xs-12">
+                                                  <div class="row">
+                                                    <div class="col-xs-4 text-right abortTurnstileIcon">
+                                                      <i class="fas fa-exclamation-triangle"></i>
+                                                    </div>
+                                                    <div class="col-xs-8 text-left abortTurnstileText">
+                                                        <span>Passage Abandonné</span>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="dataInfo" ng-switch-when="nbPassageByDay" ng-switch-when-separator="|">
+                                              <div class="row">
+                                                <div class="col-xs-12">
+                                                  <div class="nbPassageByDay">
+                                                    Nombre de passages : <b>{{histo.data.payLoad.count}}</b>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="dataInfo" ng-switch-when="noData" ng-switch-when-separator="|">
+                                              <div class="row">
+                                                <div class="col-xs-12">
+                                                  <div class="noData">
+                                                    Fin des données
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="dataInfo" ng-switch-default>
+                                              <div class="row">
+                                                <div class="col-xs-12">
+                                                  <div class="jsonCode">
+                                                    {{histo.data}}
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                          <div class="col-xs-12 col-sm-12 col-xl-12 text-center nopadding" ng-show="histos.length == 0">
+                            Chargement en cours...
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" ng-click="getNbPassageByDay(0)"><i class="fas fa-chart-line"></i></button>
+                        <button type="button" class="btn btn-secondary" ng-click="getInfoNbPassageByDay?getNbPassageByDay(-1):getHistory(-1)"><i class="fas fa-arrow-left"></i></button>
+                        <button type="button" class="btn btn-secondary" ng-disabled="histos[0].data.msgType=='event'?(histos[0].data.payLoad.type=='noData'?true:false):false" ng-click="getInfoNbPassageByDay?getNbPassageByDay(+1):getHistory(+1)"><i class="fas fa-arrow-right"></i></button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-footer">
+                <div class="row technicalInfo">
+                  <div class="col-xs-12 screenLarge">
+                    <div class="row">
+                      <div class="col-xs-4">
+                        <div class="version">
+                          <i class="fas fa-code-branch"></i> Version: {{rpiVersion}}
+                        </div>
+                        <div class="version">
+                          <i class="fas fa-code"></i> Version client: {{accessClientVersion}}
+                        </div>
+                        <div class="localIP">
+                          <i class="glyphicon glyphicon-link"></i> Local IP: {{DAGLiveLocalIpAddress.split(':')[0]}}
+                        </div>
+                        <div class="travelTime">
+                          <i class="fas fa-history"></i> {{travelTime}}s
+                        </div>
+                        <div class="pointCost">
+                          <i class="fi-die-two" style="font-size:12px;"></i> {{pointCost}} point(s)
+                        </div>
+                      </div>
+                      <div class="col-xs-8">
+                        <div class="btn btn-xs btn-success" ng-show="tcpconnectOK" ng-click="resetTCP()"><i class="fas fa-wifi glyphicon-margin"></i><span class="screenLarge"> Connected</span></div>
+                        <div class="btn btn-xs btn-danger" ng-show="!tcpconnectOK" ng-click="resetTCP()"><i class="fas fa-wifi glyphicon-margin"></i><span class="screenLarge"> Disconnected</span></div>
+                        <div class="btn btn-xs" ng-class="stateHwItem.stateHw"><i class="fas fa-cubes" ng-class="stateHwItem.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge">  PRN</span></div>
+                        <div class="btn btn-xs" ng-class="stateHwEvent.stateHw"><i class="fas fa-flag-checkered" ng-class="stateHwEvent.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge">  Detection</span></div>
+                        <div class="btn btn-xs" ng-class="stateHwSetup.stateHw"><i class="fas fa-sliders-h" ng-class="stateHwSetup.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i></i><span class="screenLarge">  Ini</span></div>
+                        <div class="btn btn-xs" ng-class="stateHwIhm.stateHw"><i class="fas fa-video" ng-class="stateHwIhm.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge">  Sound + pict</span></div>
+                        <div class="btn btn-xs" ng-class="stateHwOpenpass.stateHw"><i class="fab fa-opera" ng-class="stateHwOpenpass.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge"> Openpass</span></div>
+                        <div class="btn btn-xs" ng-class="stateHwData.stateHw"><i class="fas fa-shopping-cart" ng-class="stateHwData.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge">  Virtual</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 screenSmall">
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <div class="version">
+                          <i class="fas fa-code-branch"></i> Version: {{rpiVersion}}
+                        </div>
+                        <div class="localIP">
+                          <i class="glyphicon glyphicon-link"></i> Local IP: {{DAGLiveLocalIpAddress.split(':')[0]}}
+                        </div>
+                        <div class="travelTime">
+                          <i class="fas fa-history"></i> {{travelTime}}s
+                        </div>
+                        <div class="pointCost">
+                          <i class="fi-die-two" style="font-size:12px;"></i> {{pointCost}} point(s)
+                        </div>
+                      </div>
+                      <div class="col-xs-6">
+                        <div class="btn btn-xs btn-success" ng-show="tcpconnectOK" ng-click="resetTCP()"><i class="fas fa-wifi glyphicon-margin"></i><span class="screenLarge"> Connected</span></div>
+                        <div class="btn btn-xs btn-danger" ng-show="!tcpconnectOK" ng-click="resetTCP()"><i class="fas fa-wifi glyphicon-margin"></i><span class="screenLarge"> Disconnected</span></div>
+                        <div class="btn btn-xs" ng-class="stateHwItem.stateHw"><i class="fas fa-cubes" ng-class="stateHwItem.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge">  PRN</span></div>
+                        <div class="btn btn-xs" ng-class="stateHwEvent.stateHw"><i class="fas fa-flag-checkered" ng-class="stateHwEvent.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge">  Detection</span></div>
+                        <div class="btn btn-xs" ng-class="stateHwSetup.stateHw"><i class="fas fa-sliders-h" ng-class="stateHwSetup.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i></i><span class="screenLarge">  Ini</span></div>
+                        <div class="btn btn-xs" ng-class="stateHwIhm.stateHw"><i class="fas fa-video" ng-class="stateHwIhm.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge">  Sound + pict</span></div>
+                        <div class="btn btn-xs" ng-class="stateHwOpenpass.stateHw"><i class="fab fa-opera" ng-class="stateHwOpenpass.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge"> Openpass</span></div>
+                        <div class="btn btn-xs" ng-class="stateHwData.stateHw"><i class="fas fa-shopping-cart" ng-class="stateHwData.isInProgress?'glyphicon-refresh-animate':'glyphicon-margin'"></i><span class="screenLarge">  Virtual</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

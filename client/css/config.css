@@ -1,0 +1,120 @@
+::-webkit-scrollbar {
+    display: none;
+}
+
+h3{
+  font-size: 16px;
+  margin-top:5px;
+  margin-bottom:5px;
+}
+th {
+  font-size: 12px;
+}
+
+td {
+  font-size: 12px;
+}
+
+.dag{
+  font-size:10px;
+}
+.name{
+  font-weight: 700;
+  font-size: 14px;
+}
+.fonction{
+  font-size:10px;
+}
+.company{
+  font-size:10px;
+  font-weight: 700;
+  color: green;
+}
+.lastDetect{
+  font-size:10px;
+}
+.position{
+  font-weight: 700;
+  font-size: 14px;
+}
+.nbDetect{
+  font-size:10px;
+}
+
+.missing{
+  background-color: red;
+}
+
+.present{
+  background-color: green;
+}
+
+.close {
+    float: right;
+	  margin-right: 2px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.vr {
+  margin-left: 10px;
+  margin-right: 15px;
+  border: 0;
+  border-left: 1px solid #cccccc;
+}
+
+.masterMode{
+  background-color: #ff00002e;
+}
+.master{
+  font-size: 10px;
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+.temperature{
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+.counter{
+  font-size: 30px;
+  color: red;
+  font-style: italic;
+  font-weight: bold;
+  margin-top: -50px;
+  margin-bottom: -60px;
+}
+.flash{
+  background-color: #6bec6b;
+}
+.row {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+.nocursor {
+  cursor:none;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+  padding: 1px;
+}
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #77777761;
+}
+
+.glyphicon-refresh-animate {
+	margin-right: 5px;
+  -animation: spin .7s infinite linear;
+  -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
