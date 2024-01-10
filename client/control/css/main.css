@@ -1,0 +1,1469 @@
+@font-face {
+	font-family: "Play";
+	src: url('../dist/fonts/Play-Regular.ttf');
+}
+
+@font-face {
+	font-family: "Play";
+	font-weight: bold;
+	src: url('../dist/fonts/Play-Bold.ttf');
+}
+
+body{
+  font-family: "Play";
+}
+
+@media screen and (min-width: 640px) {
+
+	.screenLarge{
+		display:inherit;
+	}
+	.screenSmall{
+		display:none;
+	}
+
+	h1{
+	  font-weight: bold;
+	}
+	h3{
+	  font-size: 16px;
+	}
+	th {
+	  font-size: 12px;
+	}
+
+	td {
+	  font-size: 10px;
+	}
+
+	.footer {
+	   position: fixed;
+	   left: 0;
+	   bottom: 0;
+	   width: 100%;
+	}
+
+	.systemHour{
+	  font-size: 28px;
+	  margin-right: 5px;
+	  font-weight: bold;
+	  color: #3a3a3a;
+	}
+
+	.version{
+	  font-size: 10px;
+	}
+	.localIP{
+	  font-size: 10px;
+	}
+	.travelTime{
+	  font-size: 10px;
+	}
+	.pointCost{
+	  font-size: 10px;
+	}
+
+
+	/* Other info */
+	.otherInfo{
+	  margin-left:2px;
+	}
+
+	/* Data info */
+	.dataInfo{
+	  margin-left:2px;
+	}
+
+	/* log info */
+	.logInfo{
+	  font-size: :10px;
+	  font-style:italic;
+	  margin-left:2px;
+	}
+
+	/* Product info */
+	.productInfo{
+	  margin-left:2px;
+	}
+
+	.timestamp{
+	  font-size:10px;
+	}
+
+	.dag{
+	  font-size:24px;
+	  font-weight: 700;
+	}
+
+	.antenna{
+	  font-size:14px;
+	  font-weight: 700;
+	}
+
+	.userName{
+	  font-size:24px;
+	  font-weight: 700;
+	  font-family: fantasy;
+	}
+
+	.userPhoto{
+		max-height: 80px;
+	}
+
+	.error{
+	  font-size:14px;
+	  font-weight: 700;
+	  background-color: white;
+	  color : red;
+	}
+
+	.freeTurnstile{
+	  height: 100px;
+	  font-size:30px;
+	  font-weight: 700;
+	  color: white;
+	  background-color: #62e20082;
+	}
+
+
+	.productName{
+	  font-size:24px;
+	  font-weight: 700;
+	}
+
+	.itemDate{
+	  font-size:24px;
+	  font-weight: 700;
+	  /*color: white;*/
+	}
+
+	.rfidDate{
+	  font-size:24px;
+	  font-weight: 700;
+	  /*color: white;*/
+	}
+	.useFromDate{
+	  font-size:24px;
+	  font-weight: 700;
+	  /*color: white;*/
+	}
+
+	.lastDetect{
+	  font-size:10px;
+	}
+	.position{
+	  font-weight: 700;
+	  font-size: 14px;
+	}
+	.nbDetect{
+	  font-size:10px;
+	}
+
+	/* Traffic Light */
+	.trafficLight{
+	  background-color: #272727;
+	  border-radius: 10px;
+	  background: linear-gradient(180deg,#000000 0%,#1d1d1d 30%,#333333 60%,#757575 100%);
+	  box-shadow: 0px 1px 1px rgba(0%,0%,0%,0.6),0px 0px 5px #ffffff,0px 1px 0px 3px rgba(0%,0%,0%,0.8),inset 0px 1px 0px #ffffff;
+	  padding: 5px;
+	  margin-top: 20px;
+	  display: inline-grid;
+	}
+
+	.smallTrafficLight{
+	  background-color: #272727;
+	  border-radius: 10px;
+	  background: linear-gradient(180deg,#000000 0%,#1d1d1d 30%,#333333 60%,#757575 100%);
+	  /* box-shadow: 0px 1px 1px rgba(0%,0%,0%,0.6), 0px 0px 5px #ffffff, 0px 1px 0px 3px rgba(0%,0%,0%,0.8), inset 0px 1px 0px #ffffff; */
+	  padding: 5px;
+	  display: inline-grid;
+	  margin-bottom: 10px;
+	  width: 30px;
+	}
+
+	.trafficSystemLight{
+	  background-color: #c1c1c1;
+	  border-radius: 10px;
+	  background: linear-gradient(180deg,#0000007a 0%,#1d1d1d29 30%,#3333331f 60%,#0000007a 100%);
+	  box-shadow: 0px 1px 1px rgba(0%,0%,0%,0.6), 0px 0px 5px #ffffff, 0px 1px 0px 3px rgba(0%,0%,0%,0.8), inset 0px 1px 0px #ffffff;
+	  padding: 5px;
+	  display: inline-grid;
+	  margin-left: 10px;
+	  margin-bottom: 10px;
+	}
+
+	/* Flash class and keyframe animation */
+	.flashit{
+		-webkit-animation: flash linear 1s infinite;
+		animation: flash linear 1s infinite;
+	}
+	@-webkit-keyframes flash {
+		0% { opacity: 1; }
+		50% { opacity: .1; }
+		100% { opacity: 1; }
+	}
+	@keyframes flash {
+		0% { opacity: 1; }
+		50% { opacity: .1; }
+		100% { opacity: 1; }
+	}
+
+
+	.btn-group-xs>.btn, .btn-xs {
+		padding: 1px 5px;
+		font-size: 10px;
+		line-height: 1.5;
+		border-radius: 3px;
+	}
+
+	.glyphicon-refresh-animate {
+		margin-right: 3px;
+	  -animation: spin .7s infinite linear;
+	  -webkit-animation: spin2 .7s infinite linear;
+	}
+
+	.glyphicon-margin{
+	  margin-right: 3px;
+	}
+
+	@-webkit-keyframes spin2 {
+	    0% { -webkit-transform: scale(1) rotateY(0deg)}
+	    50% { -webkit-transform: scale(1) rotateY(180deg)}
+	    100% { -webkit-transform: scale(1) rotateY(0deg)}
+	}
+
+	@keyframes spin {
+	    from { transform: scale(1) rotate(0deg);}
+	    to { transform: scale(1) rotate(360deg);}
+	}
+
+
+	.advertising-1{
+		display:visible;
+	}
+
+	/* sliding horizontaly */
+	.item-1,
+	.item-2,
+	.item-3 {
+	  position: absolute;
+	  display: block;
+	  bottom: 0px;
+	  width: 800px;
+	  font-size: 2em;
+	  animation-duration: 20s;
+	  animation-timing-function: ease-in-out;
+	  animation-iteration-count: infinite;
+	}
+
+	.item-1{
+		animation-name: anim-1;
+	}
+
+	.item-2{
+		animation-name: anim-2;
+	}
+
+	.item-3{
+		animation-name: anim-3;
+	}
+
+	.logo{
+	  margin-top: 10px;
+	}
+
+	.adv-logo{
+		height: 100px;
+	}
+
+
+	@keyframes anim-1 {
+		0%, 8.3% { left: -100%; opacity: 0; }
+	  8.3%,25% { left: 10%; opacity: 1; }
+	  33.33%, 100% { left: 100%; opacity: 0; }
+	}
+
+	@keyframes anim-2 {
+		0%, 33.33% { left: -100%; opacity: 0; }
+	  41.63%, 58.29% { left: 10%; opacity: 1; }
+	  66.66%, 100% { left: 100%; opacity: 0; }
+	}
+
+	@keyframes anim-3 {
+		0%, 66.66% { left: -100%; opacity: 0; }
+	  74.96%, 91.62% { left: 10%; opacity: 1; }
+	  100% { left: 100%; opacity: 0; }
+	}
+
+
+
+
+	.redLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 80px;
+	  height: 80px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #ed4e4e;
+	  border-radius: 100px;
+	  border: 1px solid #ac1d1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 9px 13px 10px 13px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #9c2828;
+	}
+	.redLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.redLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.redLightOn > .ld {
+	  font-size: initial
+	}
+
+
+	.redLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 80px;
+	  height: 80px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(92%,30%,30%,0);
+	  border-radius: 100px;
+	  border: 1px solid #ac1d1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 9px 13px 10px 13px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #9c2828;
+	}
+	.redLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.redLightOff > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.redLightOff > .ld {
+	  font-size: initial
+	}
+
+	.orangeLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 80px;
+	  height: 80px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #edcb4e;
+	  border-radius: 100px;
+	  border: 1px solid #d39b20;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 9px 13px 10px 13px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #e0ac3a;
+	}
+
+	.orangeLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.orangeLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.orangeLightOn > .ld {
+	  font-size: initial
+	}
+
+	.orangeLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 80px;
+	  height: 80px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(92%,80%,30%,0);
+	  border-radius: 100px;
+	  border: 1px solid #d39b20;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 9px 13px 10px 13px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #e0ac3a;
+	}
+	.orangeLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.orangeLightOff > i {
+	  color: #fff;
+	  font-size: 1em;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.orangeLightOff > .ld {
+	  font-size: initial
+	}
+
+	.greenLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 80px;
+	  height: 80px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #a2da8e;
+	  border-radius: 100px;
+	  border: 1px solid #25ac1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 9px 13px 10px 13px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #529c28;
+	}
+	.greenLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.greenLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.greenLightOn > .ld {
+	  font-size: initial
+	}
+
+	.greenLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 80px;
+	  height: 80px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(64%,85%,56%,0);
+	  border-radius: 100px;
+	  border: 1px solid #25ac1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 9px 13px 10px 13px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #529c28;
+	}
+	.greenLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.greenLightOff > i {
+	  color: #fff;
+	  font-size: 1em;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.greenLightOff > .ld {
+	  font-size: initial
+	}
+
+	/* Small Traffic Light */
+	.smallRedLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 20px;
+	  height: 20px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #ed4e4e;
+	  border-radius: 100px;
+	  border: 1px solid #ac1d1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #9c2828;
+	}
+	.smallRedLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallRedLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallRedLightOn > .ld {
+	  font-size: initial
+	}
+
+
+	.smallRedLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 20px;
+	  height: 20px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(92%,30%,30%,0);
+	  border-radius: 100px;
+	  border: 1px solid #ac1d1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #9c2828;
+	}
+	.smallRedLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallRedLightOff > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallRedLightOff > .ld {
+	  font-size: initial
+	}
+
+	.smallOrangeLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 20px;
+	  height: 20px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #edcb4e;
+	  border-radius: 100px;
+	  border: 1px solid #d39b20;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #e0ac3a;
+	}
+
+	.smallOrangeLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallOrangeLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallOrangeLightOn > .ld {
+	  font-size: initial
+	}
+
+	.smallOrangeLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 20px;
+	  height: 20px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(92%,80%,30%,0);
+	  border-radius: 100px;
+	  border: 1px solid #d39b20;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #e0ac3a;
+	}
+	.smallOrangeLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallOrangeLightOff > i {
+	  color: #fff;
+	  font-size: 1em;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallOrangeLightOff > .ld {
+	  font-size: initial
+	}
+
+	.smallGreenLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 20px;
+	  height: 20px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #a2da8e;
+	  border-radius: 100px;
+	  border: 1px solid #25ac1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #529c28;
+	}
+	.smallGreenLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallGreenLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallGreenLightOn > .ld {
+	  font-size: initial
+	}
+
+	.smallGreenLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 20px;
+	  height: 20px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(64%,85%,56%,0);
+	  border-radius: 100px;
+	  border: 1px solid #25ac1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #529c28;
+	}
+	.smallGreenLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallGreenLightOff > i {
+	  color: #fff;
+	  font-size: 1em;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallGreenLightOff > .ld {
+	  font-size: initial
+	}
+
+
+	/* TCP Message type */
+	.helloMsg{
+	  background-color: #ffe0009e;
+	}
+
+	.goodbyeMsg{
+	  background-color: #00a0ff36;
+	}
+
+	.nackMsg{
+	  color: #ffff00;
+	  background-color: #a94442;
+	}
+
+	.ackMsg{
+	  background-color: #10ff0033;
+	}
+
+	.eventMsg{
+	  background-color: #0000ff36;
+	}
+	.eventOkMsg{
+	  background-color: #6eff0047;
+	}
+
+	.eventKoMsg{
+	  background-color: #ff0000b0;
+	}
+
+	.dataMsg{
+	  background-color: #ff76006b;
+	}
+
+
+	.bottom-right{
+	   position: fixed;
+	   bottom: 0;
+	   right: 0;
+	 }
+
+	.row {
+	  margin-right: 0px;
+	  margin-left: 0px;
+	}
+	.nocursor {
+	  cursor:none;
+	}
+
+	.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+	  padding: 1px;
+	}
+	.table-striped>tbody>tr:nth-of-type(odd) {
+	    background-color: #77777731;
+	}
+
+	/* Tooltip */
+	.tooltipInfo .tooltip-inner{
+		background-color: #7DCF85;
+		/*color: #FFFFFF;*/
+		border: 1px solid green;
+		padding: 3px;
+		/*font-size: 12px;*/
+	}
+
+	.tooltip.in{
+		opacity: 1 !important;
+	}
+}
+
+@media screen and (max-width: 600px) {
+
+	.screenLarge{
+		display:none;
+	}
+	.screenSmall{
+		display:inherit;
+	}
+
+	h1{
+	  font-weight: bold;
+		font-size: 26px;
+	}
+	h3{
+	  font-size: 16px;
+	}
+	th {
+	  font-size: 12px;
+	}
+
+	td {
+	  font-size: 10px;
+	}
+
+	.footer {
+	   position: fixed;
+	   left: 0;
+	   bottom: 0;
+	   width: 100%;
+	}
+
+	.systemHour{
+	  font-size: 20px;
+	  padding-right: 0px;
+	  font-weight: bold;
+	  color: #3a3a3a;
+	}
+
+	.version{
+	  font-size: 10px;
+	}
+	.localIP{
+	  font-size: 10px;
+	}
+	.travelTime{
+	  font-size: 10px;
+	}
+	.pointCost{
+	  font-size: 10px;
+	}
+
+
+	/* Other info */
+	.otherInfo{
+	  margin-left:2px;
+	}
+
+	/* Data info */
+	.dataInfo{
+	  margin-left:2px;
+	}
+
+	/* log info */
+	.logInfo{
+	  font-size: :10px;
+	  font-style:italic;
+	  margin-left:2px;
+	}
+
+	/* Product info */
+	.productInfo{
+	  margin-left:2px;
+	}
+
+	.timestamp{
+	  font-size:10px;
+	}
+
+	.dag{
+	  font-size:24px;
+	  font-weight: 700;
+	}
+
+	.antenna{
+	  font-size:14px;
+	  font-weight: 700;
+	}
+
+	.userName{
+	  font-size:18px;
+	  font-weight: 700;
+	  font-family: fantasy;
+	}
+
+	.userPhoto{
+		max-height: 80px;
+	}
+
+	.error{
+	  font-size:14px;
+	  font-weight: 700;
+	  background-color: white;
+	  color : red;
+	}
+
+	.freeTurnstile{
+	  height: 100px;
+	  font-size:20px;
+	  font-weight: 700;
+	  color: white;
+	  background-color: #62e20082;
+	}
+
+
+	.productName{
+	  font-size:24px;
+	  font-weight: 700;
+	}
+
+	.itemDate{
+	  font-size:24px;
+	  font-weight: 700;
+	  /*color: white;*/
+	}
+
+	.rfidDate{
+	  font-size:24px;
+	  font-weight: 700;
+	  /*color: white;*/
+	}
+	.useFromDate{
+	  font-size:24px;
+	  font-weight: 700;
+	  /*color: white;*/
+	}
+
+	.lastDetect{
+	  font-size:10px;
+	}
+	.position{
+	  font-weight: 700;
+	  font-size: 14px;
+	}
+	.nbDetect{
+	  font-size:10px;
+	}
+
+	/* Traffic Light */
+	.trafficLight{
+	  background-color: #272727;
+	  border-radius: 10px;
+	  background: linear-gradient(180deg,#000000 0%,#1d1d1d 30%,#333333 60%,#757575 100%);
+	  box-shadow: 0px 1px 1px rgba(0%,0%,0%,0.6),0px 0px 5px #ffffff,0px 1px 0px 3px rgba(0%,0%,0%,0.8),inset 0px 1px 0px #ffffff;
+	  padding: 5px;
+	  margin-top: 40px;
+	  display: inline-grid;
+	}
+
+	.smallTrafficLight{
+	  background-color: #272727;
+	  border-radius: 10px;
+	  background: linear-gradient(180deg,#000000 0%,#1d1d1d 30%,#333333 60%,#757575 100%);
+	  /* box-shadow: 0px 1px 1px rgba(0%,0%,0%,0.6), 0px 0px 5px #ffffff, 0px 1px 0px 3px rgba(0%,0%,0%,0.8), inset 0px 1px 0px #ffffff; */
+	  padding: 5px;
+	  display: inline-grid;
+	  margin-bottom: 10px;
+	  width: 30px;
+	}
+
+	.trafficSystemLight{
+	  background-color: #c1c1c1;
+	  border-radius: 10px;
+	  background: linear-gradient(180deg,#0000007a 0%,#1d1d1d29 30%,#3333331f 60%,#0000007a 100%);
+	  box-shadow: 0px 1px 1px rgba(0%,0%,0%,0.6), 0px 0px 5px #ffffff, 0px 1px 0px 3px rgba(0%,0%,0%,0.8), inset 0px 1px 0px #ffffff;
+	  padding: 5px;
+	  display: inline-grid;
+	  margin-left: 10px;
+	  margin-bottom: 10px;
+	}
+
+	/* Flash class and keyframe animation */
+	.flashit{
+		-webkit-animation: flash linear 1s infinite;
+		animation: flash linear 1s infinite;
+	}
+	@-webkit-keyframes flash {
+		0% { opacity: 1; }
+		50% { opacity: .1; }
+		100% { opacity: 1; }
+	}
+	@keyframes flash {
+		0% { opacity: 1; }
+		50% { opacity: .1; }
+		100% { opacity: 1; }
+	}
+
+	.glyphicon-refresh-animate {
+	  -animation: spin .7s infinite linear;
+	  -webkit-animation: spin2 .7s infinite linear;
+	}
+
+	.glyphicon-margin{
+	}
+
+	@-webkit-keyframes spin2 {
+	    0% { -webkit-transform: scale(1) rotateY(0deg)}
+	    50% { -webkit-transform: scale(1) rotateY(180deg)}
+	    100% { -webkit-transform: scale(1) rotateY(0deg)}
+	}
+
+	@keyframes spin {
+	    from { transform: scale(1) rotate(0deg);}
+	    to { transform: scale(1) rotate(360deg);}
+	}
+
+
+	/* sliding horizontaly */
+	.item-1,
+	.item-2,
+	.item-3 {
+	  position: absolute;
+	  display: block;
+	  bottom: 0px;
+	  width: 980px;
+	  font-size: 1.5em;
+	  animation-duration: 20s;
+	  animation-timing-function: ease-in-out;
+	  animation-iteration-count: infinite;
+	}
+
+	.item-1{
+		animation-name: anim-1;
+	}
+
+	.item-2{
+		animation-name: anim-2;
+	}
+
+	.item-3{
+		animation-name: anim-3;
+	}
+
+	.logo{
+	  margin-top: 10px;
+	}
+
+	.adv-logo{
+		height: 60px;
+	}
+
+	@keyframes anim-1 {
+		0%, 8.3% { left: -100%; opacity: 0; }
+	  8.3%,25% { left: -30%; opacity: 1; }
+	  33.33%, 100% { left: 100%; opacity: 0; }
+	}
+
+	@keyframes anim-2 {
+		0%, 33.33% { left: -100%; opacity: 0; }
+	  41.63%, 58.29% { left: -30%; opacity: 1; }
+	  66.66%, 100% { left: 100%; opacity: 0; }
+	}
+
+	@keyframes anim-3 {
+		0%, 66.66% { left: -100%; opacity: 0; }
+	  74.96%, 91.62% { left: -30%; opacity: 1; }
+	  100% { left: 100%; opacity: 0; }
+	}
+
+
+	.redLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 80px;
+	  height: 80px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #ed4e4e;
+	  border-radius: 100px;
+	  border: 1px solid #ac1d1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 9px 13px 10px 13px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #9c2828;
+	}
+	.redLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.redLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.redLightOn > .ld {
+	  font-size: initial
+	}
+
+
+	.redLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 80px;
+	  height: 80px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(92%,30%,30%,0);
+	  border-radius: 100px;
+	  border: 1px solid #ac1d1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 9px 13px 10px 13px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #9c2828;
+	}
+	.redLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.redLightOff > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.redLightOff > .ld {
+	  font-size: initial
+	}
+
+	.orangeLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 80px;
+	  height: 80px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #edcb4e;
+	  border-radius: 100px;
+	  border: 1px solid #d39b20;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 9px 13px 10px 13px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #e0ac3a;
+	}
+
+	.orangeLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.orangeLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.orangeLightOn > .ld {
+	  font-size: initial
+	}
+
+	.orangeLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 80px;
+	  height: 80px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(92%,80%,30%,0);
+	  border-radius: 100px;
+	  border: 1px solid #d39b20;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 9px 13px 10px 13px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #e0ac3a;
+	}
+	.orangeLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.orangeLightOff > i {
+	  color: #fff;
+	  font-size: 1em;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.orangeLightOff > .ld {
+	  font-size: initial
+	}
+
+	.greenLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 80px;
+	  height: 80px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #a2da8e;
+	  border-radius: 100px;
+	  border: 1px solid #25ac1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 9px 13px 10px 13px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #529c28;
+	}
+	.greenLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.greenLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.greenLightOn > .ld {
+	  font-size: initial
+	}
+
+	.greenLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 80px;
+	  height: 80px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(64%,85%,56%,0);
+	  border-radius: 100px;
+	  border: 1px solid #25ac1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 9px 13px 10px 13px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #529c28;
+	}
+	.greenLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.greenLightOff > i {
+	  color: #fff;
+	  font-size: 1em;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.greenLightOff > .ld {
+	  font-size: initial
+	}
+
+	/* Small Traffic Light */
+	.smallRedLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 20px;
+	  height: 20px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #ed4e4e;
+	  border-radius: 100px;
+	  border: 1px solid #ac1d1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #9c2828;
+	}
+	.smallRedLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallRedLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallRedLightOn > .ld {
+	  font-size: initial
+	}
+
+
+	.smallRedLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 20px;
+	  height: 20px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(92%,30%,30%,0);
+	  border-radius: 100px;
+	  border: 1px solid #ac1d1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #9c2828;
+	}
+	.smallRedLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallRedLightOff > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallRedLightOff > .ld {
+	  font-size: initial
+	}
+
+	.smallOrangeLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 20px;
+	  height: 20px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #edcb4e;
+	  border-radius: 100px;
+	  border: 1px solid #d39b20;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #e0ac3a;
+	}
+
+	.smallOrangeLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallOrangeLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallOrangeLightOn > .ld {
+	  font-size: initial
+	}
+
+	.smallOrangeLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 20px;
+	  height: 20px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(92%,80%,30%,0);
+	  border-radius: 100px;
+	  border: 1px solid #d39b20;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #e0ac3a;
+	}
+	.smallOrangeLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallOrangeLightOff > i {
+	  color: #fff;
+	  font-size: 1em;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallOrangeLightOff > .ld {
+	  font-size: initial
+	}
+
+	.smallGreenLightOn {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 20px;
+	  height: 20px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: #a2da8e;
+	  border-radius: 100px;
+	  border: 1px solid #25ac1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #529c28;
+	}
+	.smallGreenLightOn > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallGreenLightOn > i {
+	  color: #fff;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallGreenLightOn > .ld {
+	  font-size: initial
+	}
+
+	.smallGreenLightOff {
+	  backface-visibility: hidden;
+	  position: relative;
+	  width: 20px;
+	  height: 20px;
+	  display: inline-block;
+	  white-space: nowrap;
+	  background: rgba(64%,85%,56%,0);
+	  border-radius: 100px;
+	  border: 1px solid #25ac1d;
+	  border-width: 1px 1px 1px 1px;
+	  padding: 0px 0px 0px 0px;
+	  box-shadow: 0px 1px 3px rgba(100%,80%,75%,0),inset 0px -1px 3px #529c28;
+	}
+	.smallGreenLightOff > div {
+	  text-align: center;
+	  margin: 0px 0px 0px 0px
+	}
+	.smallGreenLightOff > i {
+	  color: #fff;
+	  font-size: 1em;
+	  border-radius: 0px;
+	  border: 0px solid transparent;
+	  border-width: 0px 0px 0px 0px;
+	  padding: 0px 0px 0px 0px;
+	  margin: 0px 0px 0px 0px;
+	  position: static
+	}
+	.smallGreenLightOff > .ld {
+	  font-size: initial
+	}
+
+
+	/* TCP Message type */
+	.helloMsg{
+	  background-color: #ffe0009e;
+	}
+
+	.goodbyeMsg{
+	  background-color: #00a0ff36;
+	}
+
+	.nackMsg{
+	  color: #ffff00;
+	  background-color: #a94442;
+	}
+
+	.ackMsg{
+	  background-color: #10ff0033;
+	}
+
+	.eventMsg{
+	  background-color: #0000ff36;
+	}
+	.eventOkMsg{
+	  background-color: #6eff0047;
+	}
+
+	.eventKoMsg{
+	  background-color: #ff0000b0;
+	}
+
+	.dataMsg{
+	  background-color: #ff76006b;
+	}
+
+
+	.bottom-right{
+	   position: fixed;
+	   bottom: 0;
+	   right: 0;
+	 }
+
+	.row {
+	  margin-right: 0px;
+	  margin-left: 0px;
+	}
+	.nocursor {
+	  cursor:none;
+	}
+
+	.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+	  padding: 1px;
+	}
+	.table-striped>tbody>tr:nth-of-type(odd) {
+	    background-color: #77777731;
+	}
+
+	/* Tooltip */
+	.tooltipInfo .tooltip-inner{
+		background-color: #7DCF85;
+		/*color: #FFFFFF;*/
+		border: 1px solid green;
+		padding: 3px;
+		/*font-size: 12px;*/
+	}
+
+	.tooltip.in{
+		opacity: 1 !important;
+	}

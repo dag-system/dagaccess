@@ -76,6 +76,7 @@ app.controller("checkpointInfoCtrl", function($scope, $http, $timeout, $interval
   $scope.histos = [];
   $scope.historyLength = 4;
   $scope.historyOffset = 0;
+  $scope.datasMaxLength = $_GET["maxdata"] || 20;
 
   $scope.idReader = '01';
   $scope.idLRDReader = '00';
@@ -124,6 +125,9 @@ app.controller("checkpointInfoCtrl", function($scope, $http, $timeout, $interval
   $scope.album = new Object();
   $scope.currentPictureProduct = 'Current one';
   $scope.currentPictureDate = '';
+
+  $scope.wavlist = {};
+  $scope.bipOnDetection = false;
 
   $scope.activeLog = {
     logSocketTX:false,
@@ -497,6 +501,21 @@ app.controller("checkpointInfoCtrl", function($scope, $http, $timeout, $interval
     };
     $scope.sendData(JSON.stringify(tx),false);
   };
+
+  $scope.playAudioLocal = function(file) {
+    if(!$scope.bipOnDetection) return;
+    if($scope.wavlist[file] == null){
+      $http.get('./wav/' + file).then(function(response) {
+        $scope.wavlist[file] = response.data;
+        let audio = new Audio("data:audio/wav;base64," + $scope.wavlist[file]);
+        audio.play();
+      });
+    }
+    else{
+      let audio = new Audio("data:audio/wav;base64," + $scope.wavlist[file]);
+      audio.play();
+    }
+  };  
 
   $scope.takePicture = function(data){
     $scope.takePictureClass = 'btn-success flashit';
@@ -890,19 +909,24 @@ function managementTTE($scope,$http,message){
             case "alreadyOk":
             case "alreadyKo":
               $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date()),date:$scope.dateFormat(new Date()),time:$scope.timeFormat(new Date()),data:JSON.parse(event.data)});
+              if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.nbDetections = message.payLoad.info[0].okCountDay;
               manageLight($scope,$scope.datas[0].data.payLoad.ticket.visual);
+              $scope.playAudioLocal($scope.datas[0].data.payLoad.ticket.sound);
               break;
 
             case "freeTurnstile":
               $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date()),date:$scope.dateFormat(new Date()),time:$scope.timeFormat(new Date()),data:JSON.parse(event.data)});
+              if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.freeTurnstileClass = 'btn-success flashit';
               $scope.nbDetections = message.payLoad.info[0].okCountDay;
               manageLight($scope,$scope.datas[0].data.payLoad.visual);
+              $scope.playAudioLocal($scope.datas[0].data.payLoad.ticket.sound);
               break;
 
             case "abortTurnstile":
               $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date()),date:$scope.dateFormat(new Date()),time:$scope.timeFormat(new Date()),data:JSON.parse(event.data)});
+              if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.freeTurnstileClass = '';
               manageLight($scope,$scope.datas[0].data.payLoad.visual);
               break;
@@ -910,6 +934,7 @@ function managementTTE($scope,$http,message){
 
             case "idle":
               $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date()),date:$scope.dateFormat(new Date()),time:$scope.timeFormat(new Date()),data:JSON.parse(event.data)});
+              if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.freeTurnstileClass = '';
               manageLight($scope,$scope.datas[0].data.payLoad.visual);
               break;
@@ -1126,25 +1151,31 @@ function managementTTE($scope,$http,message){
             case "alreadyOk":
             case "alreadyKo":
               $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date()),date:$scope.dateFormat(new Date()),time:$scope.timeFormat(new Date()),data:JSON.parse(event.data)});
+              if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.nbDetections = message.payLoad.info[0].okCountDay;
               manageLight($scope,$scope.datas[0].data.payLoad.ticket.visual);
+              $scope.playAudioLocal($scope.datas[0].data.payLoad.ticket.sound);
               break;
 
             case "freeTurnstile":
               $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date()),date:$scope.dateFormat(new Date()),time:$scope.timeFormat(new Date()),data:JSON.parse(event.data)});
+              if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.freeTurnstileClass = 'btn-success flashit';
               $scope.nbDetections = message.payLoad.info[0].okCountDay;
               manageLight($scope,$scope.datas[0].data.payLoad.visual);
+              $scope.playAudioLocal($scope.datas[0].data.payLoad.ticket.sound);
               break;
 
             case "abortTurnstile":
               $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date()),date:$scope.dateFormat(new Date()),time:$scope.timeFormat(new Date()),data:JSON.parse(event.data)});
+              if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.freeTurnstileClass = '';
               manageLight($scope,$scope.datas[0].data.payLoad.visual);
               break;
 
             case "idle":
               $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date()),date:$scope.dateFormat(new Date()),time:$scope.timeFormat(new Date()),data:JSON.parse(event.data)});
+              if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.freeTurnstileClass = '';
               manageLight($scope,$scope.datas[0].data.payLoad.visual);
               break;
@@ -1363,25 +1394,31 @@ function managementTTE($scope,$http,message){
             case "alreadyOk":
             case "alreadyKo":
               $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date()),date:$scope.dateFormat(new Date()),time:$scope.timeFormat(new Date()),data:JSON.parse(event.data)});
+              if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.nbDetections = message.payLoad.info[0].okCountDay;
               manageLight($scope,$scope.datas[0].data.payLoad.ticket.visual);
+              $scope.playAudioLocal($scope.datas[0].data.payLoad.ticket.sound);
               break;
 
             case "freeTurnstile":
               $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date()),date:$scope.dateFormat(new Date()),time:$scope.timeFormat(new Date()),data:JSON.parse(event.data)});
+              if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.freeTurnstileClass = 'btn-success flashit';
               $scope.nbDetections = message.payLoad.info[0].okCountDay;
               manageLight($scope,$scope.datas[0].data.payLoad.visual);
+              $scope.playAudioLocal($scope.datas[0].data.payLoad.ticket.sound);
               break;
 
             case "abortTurnstile":
               $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date()),date:$scope.dateFormat(new Date()),time:$scope.timeFormat(new Date()),data:JSON.parse(event.data)});
+              if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.freeTurnstileClass = '';
               manageLight($scope,$scope.datas[0].data.payLoad.visual);
               break;
 
             case "idle":
               $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date()),date:$scope.dateFormat(new Date()),time:$scope.timeFormat(new Date()),data:JSON.parse(event.data)});
+              if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.freeTurnstileClass = '';
               manageLight($scope,$scope.datas[0].data.payLoad.visual);
               break;
@@ -1390,7 +1427,7 @@ function managementTTE($scope,$http,message){
               break;
 
             default:
-              $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date()),date:$scope.dateFormat(new Date()),time:$scope.timeFormat(new Date()),data:JSON.parse(event.data)});
+              if($scope.showLogEvent) $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date()),date:$scope.dateFormat(new Date()),time:$scope.timeFormat(new Date()),data:JSON.parse(event.data)});
 
           }
           break;

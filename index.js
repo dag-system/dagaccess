@@ -33,17 +33,6 @@ exec('lscpu | grep -A 0 \'Architecture\'',(err, stdout, stderr) => {
   logger.log('info','CPU Type :' + cpuType);
 });
 
-var mixerName = 'Headphone';
-exec('amixer | grep \'Simple mixer control\'',(err, stdout, stderr) => {
-  if (err) {
-    logger.log('error','Get Mixer Type error :' + err.toString());
-    return;
-  }
-  logger.log('info','Mixer Type answer :' + stdout.toString());
-  mixerName = stdout.toString().split("Simple mixer control ")[1].split('\n')[0];
-  logger.log('info','Mixer Type :' + mixerName);
-});
-
 var knex = null;
 
 // region Folder Management
@@ -85,6 +74,57 @@ else{
   clientId = configJson.clientId;
 }
 
+var ws281x = null;
+var NUM_LEDS = parseInt(process.argv[2], 10) || 10;
+var NUM_LEDS = 19;
+var pixelData = new Uint32Array(NUM_LEDS);
+/* Config à faire sur Raspberry
+La sortie audio doit être désactivée. Pour cela, nous éditons le fichier
+  sudo nano /etc/modprobe.d/snd-blacklist.conf
+Ici nous ajoutons la ligne suivante:
+  blacklist snd_bcm2835
+Nous devons également éditer le fichier de configuration:
+  sudo nano /boot/config.txt
+Ci-dessous se trouvent les lignes avec le contenu suivant (avec Ctrl + W vous pouvez chercher):
+  # Enable audio (loads snd_bcm2835)
+  dtparam=audio=on
+Cette ligne du bas est commentée avec un hashtag # au début de la ligne:
+  #dtparam=audio=on
+*/
+
+if(configJson.ledConnected){
+  ws281x = require('rpi-ws281x-native');
+  const optionsLed = {
+    dma: 10,
+    freq: 800000,
+    gpio: 18,
+    invert: false,
+    brightness: 255,
+    stripType: 'ws2812'
+  };
+  ws281x.init(NUM_LEDS,optionsLed);
+  
+  // ---- trap the SIGINT and reset before exit
+  process.on('SIGINT', function () {
+    ws281x.reset();
+    process.nextTick(function () { process.exit(0); });
+  });
+}
+
+var mixerName = 'Headphone';
+if(!configJson.ledConnected){
+  exec('amixer | grep \'Simple mixer control\'',(err, stdout, stderr) => {
+    if (err) {
+      logger.log('error','Get Mixer Type error :' + err.toString());
+      return;
+    }
+    logger.log('info','Mixer Type answer :' + stdout.toString());
+    mixerName = stdout.toString().split("Simple mixer control ")[1].split('\n')[0];
+    logger.log('info','Mixer Type :' + mixerName);
+  });
+}
+
+
 // endregion Config Management
 
 // region tcpClient to Java Connexion Management
@@ -103,6 +143,7 @@ tcpOnData = function(cnx,dataRx){
   var data = JSON.parse(dataRx);
   switch (data.msgType) {
     case 'hello':
+      if(configJson.ledConnected) showLED("#FFFFFF");
       imgPath = data.payLoad.imgPath;
       imgPath = imgPath.replace(/C:/g,'\\\\' + configJson.tcpIp) + '/';
       console.log('imgPath:' + imgPath);
@@ -153,7 +194,8 @@ tcpOnData = function(cnx,dataRx){
             password : data.payLoad.dbInfo.passwordDatabase,
             database : data.payLoad.dbInfo.nameDatabase,
             multipleStatements: true,
-            compress: 1
+            compress: 1,
+            charset: 'utf8'
           },
           pool: { min: 0, max: 20 }
         }
@@ -176,12 +218,29 @@ tcpOnData = function(cnx,dataRx){
 
     case 'event':
       wsBroadcast(data);
+      if(configJson.ledConnected){
+        switch(data.payLoad.type){
+          case "freeTurnstile":
+          case "ok":
+            showLED("#00FF00");
+            break;
+          case "ko":
+            showLED("#FF0000");
+            break;
+          case "alreadyOk":
+            showLED("#0000FF");
+            break;
+          case "alreadyKo":
+            showLED("#FFFF00");
+            break;
+        }
+      }
       switch(data.payLoad.type){
         case "ok":
         case "ko":
         case "alreadyOk":
           logger.log('info','ticket sound : ' + data.payLoad.ticket.sound);
-          if(data.payLoad.ticket.sound.length > 0){
+          if(data.payLoad.ticket.sound.length > 0 && !configJson.ledConnected){
             logger.log('info','play : ' + soundPath + data.payLoad.ticket.sound);
             player.play({
               path: soundPath + data.payLoad.ticket.sound,
@@ -331,6 +390,15 @@ serverApp.get('/js/:file', function(req, res) {
   logger.log('verbose',"/js/:file : " + platformScriptPath + req.params.file);
   res.setHeader('Content-Type', 'application/javascript');
   res.render(platformScriptPath + req.params.file,{ip:ip.address() + ":" + httpPort,ipdataname:configJson.ipdatabasename,websocketIp:ip.address(),websocketPort:configJson.websocketServerPort,version:projectInfo.version});
+  // res.render(platformScriptPath + req.params.file,{ip:'192.168.0.74' + ":" + port,ipdataname:configJson.ipdatabasename});
+});
+
+serverApp.get('/wav/:file', function(req, res) {
+  var platformScriptPath = soundPath;
+  logger.log('verbose',"/wav/:file : " + platformScriptPath + req.params.file);
+  
+  res.setHeader('Content-Type', 'text/plain');
+  res.send(fs.readFileSync(platformScriptPath + req.params.file,'base64'));
   // res.render(platformScriptPath + req.params.file,{ip:'192.168.0.74' + ":" + port,ipdataname:configJson.ipdatabasename});
 });
 
@@ -521,7 +589,6 @@ try {
           break;
 
         case 'getVolume':
-          
           exec(`amixer sget ${mixerName} | grep 'Mono:' | awk -F'[][]' '{ print $2 }'`,(err, stdout, stderr) => {
             if (err) {
               logger.log('error','getVolume error :' + err.toString());
@@ -538,6 +605,7 @@ try {
           break;
 
         case 'setVolume':
+          if(configJson.ledConnected) return;
           exec(`amixer sset ${mixerName} ${objWebRx.volumeValue}%`,(err, stdout, stderr) => {
             if (err) {
               logger.log('error','setVolume error :' + err.toString());
@@ -663,3 +731,34 @@ function wsSendToOther(sendParam,id) {
 };
 
 // endregion Websocket server Connexion Management
+
+// region LED function
+
+
+const rgb2hex = (rgb) => {
+  if (rgb.search("rgb") === -1) return rgb;
+  rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+))?\)$/);
+  const hex = (x) => ("0" + parseInt(x).toString(16)).slice(-2);
+  return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+};
+
+function setLEDColor(led,color){
+	console.log("allume LED : " + led + " avec la couleur :",color);
+	if(color.indexOf("#")>= 0){
+		color = parseInt(rgb2hex(color).replace(/#/g,''),16);
+	}
+	pixelData[led] = color;
+	ws281x.render(pixelData);
+}
+
+function showLED(color){
+  if(color.indexOf("#")>= 0){
+		color = parseInt(rgb2hex(color).replace(/#/g,''),16);
+	}
+	for(let i=0;i<pixelData.length;i++){
+			pixelData[i] = color;
+	}
+	ws281x.render(pixelData);
+}
+
+// end region LED function

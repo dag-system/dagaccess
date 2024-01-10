@@ -1,0 +1,39 @@
+<html ng-app="checkpointInfo" ng-controller="checkpointInfoCtrl">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="./dist/js/angular.min.js"></script>
+    <script src="./dist/js/angular-sanitize.min.js"></script>
+    <script src="./dist/js/jquery.min.js"></script>
+    <script src="./dist/jquery-ui/jquery-ui.min.js"></script>
+    <script src="./dist/js/moment.min.js"></script>
+    <link rel="stylesheet" href="./dist/jquery-ui/jquery-ui.min.css">
+    <link rel="stylesheet" href="./dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="./dist/foundation-icons/foundation-icons.css">
+    <script src="./dist/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="/dist/css/fontawesome-all.min.css">
+    <link href="./css/dag.css" rel="stylesheet">
+    <link href="./css/spinner.css" rel="stylesheet">
+    <script src="./js/dag_access_control.js"></script>
+    <title ng-bind="header">DAG Access</title>
+  </head>
+  <body>
+    <div  id="cd-checkpointInfo">
+      <div >
+        <div ng-class="{'nocursor': desktop == null}">
+          <div class="">
+            <div ng-repeat="url in controlURL" class="col-xs-6" style="padding:0 !important">
+              <iframe ng-src="{{url}}" style="	width: 100%;
+              height: 100%;
+              margin: 0;
+              padding: 0;
+              border: none;"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
