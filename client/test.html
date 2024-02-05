@@ -775,10 +775,19 @@
                     <div class="row">
                       <div class="col-md-6 col-xs-12">
                         <div class="row">
-                          CPU Temp = <b>{{cpuTemperature}}°C</b>
+                          <i class="fas fa-microchip"></i> CPU Temp = <b>{{cpuTemperature}}°C</b>
                         </div>
                         <div class="row">
-                          Timeout Fin OK = <b>{{timeoutFinOK}}s</b>
+                          <i class="fas fa-history"></i> Temps interpassage = <b>{{travelTime}}s</b>
+                        </div>
+                        <div class="row">
+                          <i class="fas fa-stopwatch"></i> Timeout Fin OK = <b>{{timeoutFinOK}}s</b>
+                        </div>
+                        <div class="row">
+                          <i class="fas fa-hourglass-end"></i> Timeout Avant Interpassage = <b>{{timeBeforeAlreadyKnown}}s</b> 
+                        </div>
+                        <div class="row">
+                          <i class="fab fa-readme"></i> Mode Lecture Multiple Puce = <b>{{batchMode==1?'Actif':'Inactif'}}</b> 
                         </div>
                       </div>
                       <div class="col-md-6 col-xs-12" ng-show="cameraReady">
@@ -792,7 +801,7 @@
                         <div class="col-md-6 col-xs-12">
                           <div class="row">
                             <div class="label label-warning">Reader #{{$index + 1 }}</div>
-                            Type Reader = <b>{{reader.typeReader}}{{(reader.typeReader=='SUC' && idLRDReader >= 21)?' + LRD':''}}</b>
+                            Type Reader = <b>{{reader.typeReader}}{{(reader.typeReader=='SUC' && idLRDReader >= 21)?' + LRD':''}}</b> - Liste ID Antenne : <b>{{reader.antennaCount.join(',')}}</b>
                           </div>
                         </div>
                       </div>
@@ -850,7 +859,7 @@
                             </div>
                           </div>
                           <div class="slidecontainer">
-                            <input type="range" min="0" max="100" value="0" class="slider" ng-model="thresholdValue" >
+                            <input type="range" min="0" max="100" value="0" class="slider" ng-model="thresholdValue" ng-click="setThresholdValue(thresholdValue)">
                           </div>
                         </div>
                       </div>
@@ -987,6 +996,13 @@
                         <div class="checkbox">
                           <label class="checkbox-inline"><input type="checkbox" ng-click="configLOG()" ng-model="activeLog.logWebRX">LOG RX WEBSOCKET</label>
                         </div>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-xs-12 text-center">
+                        <button class="btn btn-default" ng-click="offScreen()"><span class="glyphicon glyphicon-flash"></span> Off Screen</button>
+                        <button class="btn btn-success" ng-click="onScreen()"><span class="glyphicon glyphicon-flash"></span> On Screen</button>
                       </div>
                     </div>
                     <hr>
