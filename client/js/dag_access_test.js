@@ -940,7 +940,7 @@ function managementTTE($scope,$http,message){
             case "ko":
             case "alreadyOk":
             case "alreadyKo":
-              $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date(message.payLoad.ticket.DateTicket)),date:$scope.dateFormat(new Date(message.payLoad.ticket.DateTicket)),time:$scope.timeFormat(new Date(message.payLoad.ticket.DateTicket)),data:JSON.parse(event.data)});
+              if(message.payLoad.ticket) $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date(message.payLoad.ticket.DateTicket)),date:$scope.dateFormat(new Date(message.payLoad.ticket.DateTicket)),time:$scope.timeFormat(new Date(message.payLoad.ticket.DateTicket)),data:JSON.parse(event.data)});
               if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.nbDetections = message.payLoad.info[0].okCountDay;
               manageLight($scope,$scope.datas[0].data.payLoad.ticket.visual);
@@ -948,7 +948,7 @@ function managementTTE($scope,$http,message){
               break;
 
             case "freeTurnstile":
-              $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date(message.payLoad.ticket.DateTicket)),date:$scope.dateFormat(new Date(message.payLoad.ticket.DateTicket)),time:$scope.timeFormat(new Date(message.payLoad.ticket.DateTicket)),data:JSON.parse(event.data)});
+              if(message.payLoad.ticket) $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date(message.payLoad.ticket.DateTicket)),date:$scope.dateFormat(new Date(message.payLoad.ticket.DateTicket)),time:$scope.timeFormat(new Date(message.payLoad.ticket.DateTicket)),data:JSON.parse(event.data)});
               if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.freeTurnstileClass = 'btn-success flashit';
               $scope.nbDetections = message.payLoad.info[0].okCountDay;
@@ -957,7 +957,7 @@ function managementTTE($scope,$http,message){
               break;
 
             case "abortTurnstile":
-              $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date(message.payLoad.ticket.DateTicket)),date:$scope.dateFormat(new Date(message.payLoad.ticket.DateTicket)),time:$scope.timeFormat(new Date(message.payLoad.ticket.DateTicket)),data:JSON.parse(event.data)});
+              if(message.payLoad.ticket) $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date(message.payLoad.ticket.DateTicket)),date:$scope.dateFormat(new Date(message.payLoad.ticket.DateTicket)),time:$scope.timeFormat(new Date(message.payLoad.ticket.DateTicket)),data:JSON.parse(event.data)});
               if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.freeTurnstileClass = '';
               manageLight($scope,$scope.datas[0].data.payLoad.visual);
@@ -1186,7 +1186,7 @@ function managementTTE($scope,$http,message){
             case "ko":
             case "alreadyOk":
             case "alreadyKo":
-              $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date(message.payLoad.ticket.DateTicket)),date:$scope.dateFormat(new Date(message.payLoad.ticket.DateTicket)),time:$scope.timeFormat(new Date(message.payLoad.ticket.DateTicket)),data:JSON.parse(event.data)});
+              if(message.payLoad.ticket) $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date(message.payLoad.ticket.DateTicket)),date:$scope.dateFormat(new Date(message.payLoad.ticket.DateTicket)),time:$scope.timeFormat(new Date(message.payLoad.ticket.DateTicket)),data:JSON.parse(event.data)});
               if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.nbDetections = message.payLoad.info[0].okCountDay;
               manageLight($scope,$scope.datas[0].data.payLoad.ticket.visual);
@@ -1194,7 +1194,7 @@ function managementTTE($scope,$http,message){
               break;
 
             case "freeTurnstile":
-              $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date(message.payLoad.ticket.DateTicket)),date:$scope.dateFormat(new Date(message.payLoad.ticket.DateTicket)),time:$scope.timeFormat(new Date(message.payLoad.ticket.DateTicket)),data:JSON.parse(event.data)});
+              if(message.payLoad.ticket) $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date(message.payLoad.ticket.DateTicket)),date:$scope.dateFormat(new Date(message.payLoad.ticket.DateTicket)),time:$scope.timeFormat(new Date(message.payLoad.ticket.DateTicket)),data:JSON.parse(event.data)});
               if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.freeTurnstileClass = 'btn-success flashit';
               $scope.nbDetections = message.payLoad.info[0].okCountDay;
@@ -1203,7 +1203,7 @@ function managementTTE($scope,$http,message){
               break;
 
             case "abortTurnstile":
-              $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date(message.payLoad.ticket.DateTicket)),date:$scope.dateFormat(new Date(message.payLoad.ticket.DateTicket)),time:$scope.timeFormat(new Date(message.payLoad.ticket.DateTicket)),data:JSON.parse(event.data)});
+              if(message.payLoad.ticket) $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date(message.payLoad.ticket.DateTicket)),date:$scope.dateFormat(new Date(message.payLoad.ticket.DateTicket)),time:$scope.timeFormat(new Date(message.payLoad.ticket.DateTicket)),data:JSON.parse(event.data)});
               if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.freeTurnstileClass = '';
               manageLight($scope,$scope.datas[0].data.payLoad.visual);
@@ -1431,7 +1431,7 @@ function managementTTE($scope,$http,message){
             case "ko":
             case "alreadyOk":
             case "alreadyKo":
-              $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date(message.payLoad.ticket.DateTicket)),date:$scope.dateFormat(new Date(message.payLoad.ticket.DateTicket)),time:$scope.timeFormat(new Date(message.payLoad.ticket.DateTicket)),data:JSON.parse(event.data)});
+              if(message.payLoad.ticket) $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date(message.payLoad.ticket.DateTicket)),date:$scope.dateFormat(new Date(message.payLoad.ticket.DateTicket)),time:$scope.timeFormat(new Date(message.payLoad.ticket.DateTicket)),data:JSON.parse(event.data)});
               if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.nbDetections = message.payLoad.info[0].okCountDay;
               manageLight($scope,$scope.datas[0].data.payLoad.ticket.visual);
@@ -1439,7 +1439,7 @@ function managementTTE($scope,$http,message){
               break;
 
             case "freeTurnstile":
-              $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date(message.payLoad.ticket.DateTicket)),date:$scope.dateFormat(new Date(message.payLoad.ticket.DateTicket)),time:$scope.timeFormat(new Date(message.payLoad.ticket.DateTicket)),data:JSON.parse(event.data)});
+              if(message.payLoad.ticket) $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date(message.payLoad.ticket.DateTicket)),date:$scope.dateFormat(new Date(message.payLoad.ticket.DateTicket)),time:$scope.timeFormat(new Date(message.payLoad.ticket.DateTicket)),data:JSON.parse(event.data)});
               if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.freeTurnstileClass = 'btn-success flashit';
               $scope.nbDetections = message.payLoad.info[0].okCountDay;
@@ -1448,7 +1448,7 @@ function managementTTE($scope,$http,message){
               break;
 
             case "abortTurnstile":
-              $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date(message.payLoad.ticket.DateTicket)),date:$scope.dateFormat(new Date(message.payLoad.ticket.DateTicket)),time:$scope.timeFormat(new Date(message.payLoad.ticket.DateTicket)),data:JSON.parse(event.data)});
+              if(message.payLoad.ticket) $scope.datas.splice(0,0,{fulldate:$scope.momentFormat(new Date(message.payLoad.ticket.DateTicket)),date:$scope.dateFormat(new Date(message.payLoad.ticket.DateTicket)),time:$scope.timeFormat(new Date(message.payLoad.ticket.DateTicket)),data:JSON.parse(event.data)});
               if($scope.datas.length > $scope.datasMaxLength) $scope.datas.pop();
               $scope.freeTurnstileClass = '';
               manageLight($scope,$scope.datas[0].data.payLoad.visual);
